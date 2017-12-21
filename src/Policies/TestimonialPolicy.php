@@ -41,8 +41,8 @@ class TestimonialPolicy
     /**
      * Determine whether the user can update the testimonial.
      *
-     * @param string                                     $ability
-     * @param \Rinvex\Fort\Contracts\UserContract        $user
+     * @param string                                             $ability
+     * @param \Rinvex\Fort\Contracts\UserContract                $user
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $resource
      *
      * @return bool
@@ -55,8 +55,8 @@ class TestimonialPolicy
     /**
      * Determine whether the user can delete the testimonial.
      *
-     * @param string                                     $ability
-     * @param \Rinvex\Fort\Contracts\UserContract        $user
+     * @param string                                             $ability
+     * @param \Rinvex\Fort\Contracts\UserContract                $user
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $resource
      *
      * @return bool

@@ -36,8 +36,8 @@ class TestimonialsController extends AuthorizedController
     /**
      * Display a listing of the resource logs.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract  $category
-     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $category
+     * @param \Cortex\Foundation\DataTables\LogsDataTable        $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
@@ -69,7 +69,7 @@ class TestimonialsController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest $request
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract                  $testimonial
+     * @param \Rinvex\Testimonials\Contracts\TestimonialContract                    $testimonial
      *
      * @return \Illuminate\Http\Response
      */
@@ -112,7 +112,7 @@ class TestimonialsController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request                   $request
+     * @param \Illuminate\Http\Request                           $request
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
      *
      * @return \Illuminate\Http\Response

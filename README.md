@@ -1,6 +1,6 @@
 # Cortex Testimonials
 
-**Cortex Testimonials** is a frontend layer for the Laravel package for managing testimonials. Customers can give you testimonials, and you can approve or disapprove each individually. Testimonials are good for showing the passion and love your service gets from customers, encouraging others to join the hype!
+**Cortex Testimonials** is a frontend layer for managing testimonials. Customers can give you testimonials, and you can approve or disapprove each individually. Testimonials are good for showing the passion and love your service gets from customers, encouraging others to join the hype!
 
 [![Packagist](https://img.shields.io/packagist/v/cortex/testimonials.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/testimonials)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/cortex/testimonials.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/cortex/testimonials/)

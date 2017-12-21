@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Rinvex\Testimonials\Contracts\TestimonialContract;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
+use Rinvex\Testimonials\Contracts\TestimonialContract;
 
 // Adminarea breadcrumbs
 Breadcrumbs::register('adminarea.testimonials.index', function (BreadcrumbsGenerator $breadcrumbs) {

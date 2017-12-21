@@ -3,19 +3,15 @@
     "type": "cortex-module",
     "description": "Cortex Testimonials is a frontend layer for the Laravel package for managing testimonials. Customers can give you testimonials, and you can approve or disapprove each individually. Testimonials are good for showing the passion and love your service gets from customers, encouraging others to join the hype!",
     "keywords": [
+        "user",
         "model",
         "rinvex",
+        "laravel",
         "cortex",
         "module",
-        "testimonial",
-        "laravel",
-        "country",
-        "primary",
-        "billing",
-        "shipping",
         "eloquent",
         "testimonials",
-        "polymorphic"
+        "recommendations"
     ],
     "license": "MIT",
     "homepage": "https://rinvex.com",

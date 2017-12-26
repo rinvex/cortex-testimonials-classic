@@ -34,23 +34,17 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Display a listing of the resource logs.
+     * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $category
-     * @param \Cortex\Foundation\DataTables\LogsDataTable        $logsDataTable
+     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function logs(TestimonialContract $testimonial, LogsDataTable $logsDataTable)
+    public function logs(TestimonialContract $testimonial)
     {
-        return $logsDataTable->with([
-            'tab' => 'logs',
-            'type' => 'testimonials',
-            'resource' => $testimonial,
-            'id' => 'cortex-testimonials-logs',
-            'phrase' => trans('cortex/testimonials::common.testimonials'),
-            'title' => trans('cortex/testimonials::common.user_testimonial', ['user' => $testimonial->user->username, 'id' => $testimonial->id]),
-        ])->render('cortex/tenants::managerarea.pages.datatable-tab');
+        return request()->ajax() && request()->wantsJson()
+            ? app(LogsDataTable::class)->with(['resource' => $testimonial])->ajax()
+            : intend(['url' => route('adminarea.testimonials.edit', ['testimonial' => $testimonial]).'#logs-tab']);
     }
 
     /**
@@ -105,8 +99,9 @@ class TestimonialsController extends AuthorizedController
     public function form(TestimonialContract $testimonial)
     {
         $users = app('rinvex.fort.user')->all()->pluck('username', 'id');
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));
 
-        return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial', 'users'));
+        return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial', 'users', 'logs'));
     }
 
     /**

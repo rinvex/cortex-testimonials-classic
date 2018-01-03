@@ -98,7 +98,7 @@ class TestimonialsController extends AuthorizedController
     protected function process(Request $request, TestimonialContract $testimonial)
     {
         // Prepare required input fields
-        $data = $request->all();
+        $data = $request->validated();
 
         // Save testimonial
         $testimonial->fill($data)->save();

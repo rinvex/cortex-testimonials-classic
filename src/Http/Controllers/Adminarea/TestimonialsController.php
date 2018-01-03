@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Http\Controllers\Adminarea;
 
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Rinvex\Testimonials\Contracts\TestimonialContract;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
@@ -90,12 +90,12 @@ class TestimonialsController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Http\Request                           $request
+     * @param \Illuminate\Foundation\Http\FormRequest            $request
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
      *
      * @return \Illuminate\Http\Response
      */
-    protected function process(Request $request, TestimonialContract $testimonial)
+    protected function process(FormRequest $request, TestimonialContract $testimonial)
     {
         // Prepare required input fields
         $data = $request->validated();

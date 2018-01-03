@@ -48,6 +48,21 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
+     * Show the form for create/update of the given resource.
+     *
+     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function form(TestimonialContract $testimonial)
+    {
+        $users = app('rinvex.fort.user')->all()->pluck('username', 'id');
+        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.testimonials.logs', ['testimonial' => $testimonial]));
+
+        return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial', 'users', 'logs'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
@@ -73,38 +88,6 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Delete the given resource from storage.
-     *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(TestimonialContract $testimonial)
-    {
-        $testimonial->delete();
-
-        return intend([
-            'url' => route('adminarea.testimonials.index'),
-            'with' => ['warning' => trans('cortex/testimonials::messages.testimonial.deleted', ['id' => $testimonial->id])],
-        ]);
-    }
-
-    /**
-     * Show the form for create/update of the given resource.
-     *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function form(TestimonialContract $testimonial)
-    {
-        $users = app('rinvex.fort.user')->all()->pluck('username', 'id');
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('adminarea.testimonials.logs', ['testimonial' => $testimonial]));
-
-        return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial', 'users', 'logs'));
-    }
-
-    /**
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Http\Request                           $request
@@ -123,6 +106,23 @@ class TestimonialsController extends AuthorizedController
         return intend([
             'url' => route('adminarea.testimonials.index'),
             'with' => ['success' => trans('cortex/testimonials::messages.testimonial.saved', ['id' => $testimonial->id])],
+        ]);
+    }
+
+    /**
+     * Delete the given resource from storage.
+     *
+     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(TestimonialContract $testimonial)
+    {
+        $testimonial->delete();
+
+        return intend([
+            'url' => route('adminarea.testimonials.index'),
+            'with' => ['warning' => trans('cortex/testimonials::messages.testimonial.deleted', ['id' => $testimonial->id])],
         ]);
     }
 }

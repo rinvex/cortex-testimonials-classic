@@ -15,7 +15,7 @@ class TestimonialTransformer extends TransformerAbstract
     public function transform(TestimonialContract $testimonial)
     {
         return [
-            'id' => (int) $testimonial->id,
+            'id' => (int) $testimonial->getKey(),
             'body' => (string) $testimonial->body,
             'user' => (object) $testimonial->user,
             'is_approved' => (bool) $testimonial->is_approved,

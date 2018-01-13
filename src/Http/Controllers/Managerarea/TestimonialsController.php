@@ -28,7 +28,7 @@ class TestimonialsController extends AuthorizedController
     public function index(TestimonialsDataTable $testimonialsDataTable)
     {
         return $testimonialsDataTable->with([
-            'id' => 'cortex-testimonials',
+            'id' => 'managerarea-testimonials-index-table',
             'phrase' => trans('cortex/testimonials::common.testimonials'),
         ])->render('cortex/tenants::managerarea.pages.datatable');
     }
@@ -57,7 +57,7 @@ class TestimonialsController extends AuthorizedController
     public function form(TestimonialContract $testimonial)
     {
         $users = app('rinvex.fort.user')->all()->pluck('username', 'id');
-        $logs = app(LogsDataTable::class)->with(['id' => 'logs-table'])->html()->minifiedAjax(route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));
+        $logs = app(LogsDataTable::class)->with(['id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table"])->html()->minifiedAjax(route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));
 
         return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial', 'users', 'logs'));
     }

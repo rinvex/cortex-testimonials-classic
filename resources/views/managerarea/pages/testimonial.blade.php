@@ -7,7 +7,7 @@
 @stop
 
 @push('scripts')
-    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest::class)->selector('#managerarea-testimonials-save') !!}
+    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest::class)->selector("#managerarea-testimonials-create-form, #managerarea-testimonials-{$testimonial->getKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -37,9 +37,9 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($testimonial->exists)
-                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => 'managerarea-testimonials-save']) }}
+                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "managerarea-testimonials-{$testimonial->getKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.store'), 'id' => 'managerarea-testimonials-save']) }}
+                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.store'), 'id' => 'managerarea-testimonials-create-form']) }}
                         @endif
 
                             <div class="row">
@@ -113,7 +113,7 @@
                     @if($testimonial->exists)
 
                         <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => 'logs-table']) !!}
+                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table"]) !!}
                         </div>
 
                     @endif

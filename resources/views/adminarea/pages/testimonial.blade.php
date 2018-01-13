@@ -6,7 +6,7 @@
     {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/testimonials::common.testimonials') }} » {{ $testimonial->exists ? $testimonial->name : trans('cortex/testimonials::common.create_testimonial') }}
 @stop
 
-@push('scripts')
+@push('inline-scripts')
     {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector("#adminarea-testimonials-create-form, #adminarea-testimonials-{$testimonial->getKey()}-update-form") !!}
 @endpush
 
@@ -134,11 +134,11 @@
         <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
     @endpush
 
-    @push('scripts-vendor')
+    @push('vendor-scripts')
         <script src="{{ mix('js/datatables.js', 'assets') }}" type="text/javascript"></script>
     @endpush
 
-    @push('scripts')
+    @push('inline-scripts')
         {!! $logs->scripts() !!}
     @endpush
 

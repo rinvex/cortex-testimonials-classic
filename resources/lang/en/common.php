@@ -14,7 +14,7 @@ return [
     'no' => 'No',
     'submit' => 'Submit',
 
-    'testimonial' => "Testimonial #:id",
+    'testimonial' => 'Testimonial #:id',
 
     // Testimonials
     'testimonials' => 'Testimonials',

@@ -5,7 +5,6 @@ declare(strict_types=1);
 return [
 
     'body' => 'Body',
-    'user' => 'User',
     'approved' => 'Approved',
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',
@@ -15,7 +14,7 @@ return [
     'no' => 'No',
     'submit' => 'Submit',
 
-    'user_testimonial' => ":user's Testimonial #:id",
+    'testimonial' => "Testimonial #:id",
 
     // Testimonials
     'testimonials' => 'Testimonials',

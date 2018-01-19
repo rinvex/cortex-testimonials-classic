@@ -56,10 +56,9 @@ class TestimonialsController extends AuthorizedController
      */
     public function form(TestimonialContract $testimonial)
     {
-        $users = app('rinvex.fort.user')->all()->pluck('username', 'id');
         $logs = app(LogsDataTable::class)->with(['id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table"])->html()->minifiedAjax(route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));
 
-        return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial', 'users', 'logs'));
+        return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial', 'logs'));
     }
 
     /**

@@ -12,24 +12,31 @@ use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
  * Cortex\Testimonials\Models\Testimonial.
  *
  * @property int                                                                             $id
- * @property int                                                                             $user_id
+ * @property int                                                                             $subject_id
+ * @property string                                                                          $subject_type
+ * @property int                                                                             $attestant_id
+ * @property string                                                                          $attestant_type
  * @property bool                                                                            $is_approved
  * @property string                                                                          $body
  * @property \Carbon\Carbon|null                                                             $created_at
  * @property \Carbon\Carbon|null                                                             $updated_at
  * @property \Carbon\Carbon|null                                                             $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent                              $user
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent                              $attestant
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent                              $subject
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[]        $tenants
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial approved()
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial disapproved()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Testimonials\Models\Testimonial whereAttestantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Testimonials\Models\Testimonial whereAttestantType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereBody($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereIsApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Testimonials\Models\Testimonial whereSubjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Testimonials\Models\Testimonial whereSubjectType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial withAllTenants($tenants, $group = null)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial withAnyTenants($tenants, $group = null)
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial withTenants($tenants, $group = null)
@@ -55,7 +62,10 @@ class Testimonial extends BaseTestimonial
      * @var array
      */
     protected static $logAttributes = [
-        'user_id',
+        'subject_id',
+        'subject_type',
+        'attestant_id',
+        'attestant_type',
         'is_approved',
         'body',
     ];
@@ -70,21 +80,4 @@ class Testimonial extends BaseTestimonial
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('rinvex.testimonials.tables.testimonials'));
-        $this->setRules([
-            'user_id' => 'required|integer|exists:'.config('rinvex.fort.tables.users').',id',
-            'is_approved' => 'sometimes|boolean',
-            'body' => 'required|string|max:150',
-        ]);
-    }
 }

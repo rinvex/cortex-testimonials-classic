@@ -64,21 +64,6 @@
 
                                 <div class="col-md-4">
 
-                                    {{-- User --}}
-                                    <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-                                        {{ Form::label('user_id', trans('cortex/testimonials::common.user'), ['class' => 'control-label']) }}
-                                        {{ Form::hidden('user_id', '') }}
-                                        {{ Form::select('user_id', $users, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/testimonials::common.select_user'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
-
-                                        @if ($errors->has('user_id'))
-                                            <span class="help-block">{{ $errors->first('user_id') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-
                                     {{-- Approved --}}
                                     <div class="form-group{{ $errors->has('is_approved') ? ' has-error' : '' }}">
                                         {{ Form::label('is_approved', trans('cortex/testimonials::common.approved'), ['class' => 'control-label']) }}

@@ -17,7 +17,6 @@ class TestimonialTransformer extends TransformerAbstract
         return [
             'id' => (int) $testimonial->getKey(),
             'body' => (string) $testimonial->body,
-            'user' => (object) $testimonial->user,
             'is_approved' => (bool) $testimonial->is_approved,
             'created_at' => (string) $testimonial->created_at,
             'updated_at' => (string) $testimonial->updated_at,

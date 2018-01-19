@@ -38,7 +38,7 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
@@ -49,7 +49,7 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
         // Bind route models and constrains
         $router->pattern('testimonial', '[0-9]+');
@@ -79,7 +79,7 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function publishResources()
+    protected function publishResources(): void
     {
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'cortex-testimonials-migrations');
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/testimonials')], 'cortex-testimonials-lang');
@@ -91,7 +91,7 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {

@@ -38,7 +38,7 @@ class TestimonialsController extends AuthorizedController
      *
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function logs(TestimonialContract $testimonial)
     {
@@ -52,7 +52,7 @@ class TestimonialsController extends AuthorizedController
      *
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function form(TestimonialContract $testimonial)
     {
@@ -66,7 +66,7 @@ class TestimonialsController extends AuthorizedController
      *
      * @param \Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(TestimonialFormRequest $request)
     {
@@ -79,7 +79,7 @@ class TestimonialsController extends AuthorizedController
      * @param \Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest $request
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract                    $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(TestimonialFormRequest $request, TestimonialContract $testimonial)
     {
@@ -92,7 +92,7 @@ class TestimonialsController extends AuthorizedController
      * @param \Illuminate\Foundation\Http\FormRequest            $request
      * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function process(FormRequest $request, TestimonialContract $testimonial)
     {

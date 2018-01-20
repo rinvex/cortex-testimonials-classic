@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use Rinvex\Testimonials\Models\Testimonial;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
-use Rinvex\Testimonials\Contracts\TestimonialContract;
 
 // Adminarea breadcrumbs
 Breadcrumbs::register('adminarea.testimonials.index', function (BreadcrumbsGenerator $breadcrumbs) {
@@ -16,12 +16,12 @@ Breadcrumbs::register('adminarea.testimonials.create', function (BreadcrumbsGene
     $breadcrumbs->push(trans('cortex/testimonials::common.create_testimonial'), route('adminarea.testimonials.create'));
 });
 
-Breadcrumbs::register('adminarea.testimonials.edit', function (BreadcrumbsGenerator $breadcrumbs, TestimonialContract $testimonial) {
+Breadcrumbs::register('adminarea.testimonials.edit', function (BreadcrumbsGenerator $breadcrumbs, Testimonial $testimonial) {
     $breadcrumbs->parent('adminarea.testimonials.index');
     $breadcrumbs->push(trans('cortex/testimonials::common.testimonial', ['id' => $testimonial->getKey()]), route('adminarea.testimonials.edit', ['testimonial' => $testimonial]));
 });
 
-Breadcrumbs::register('adminarea.testimonials.logs', function (BreadcrumbsGenerator $breadcrumbs, TestimonialContract $testimonial) {
+Breadcrumbs::register('adminarea.testimonials.logs', function (BreadcrumbsGenerator $breadcrumbs, Testimonial $testimonial) {
     $breadcrumbs->parent('adminarea.testimonials.index');
     $breadcrumbs->push(trans('cortex/testimonials::common.testimonial', ['id' => $testimonial->getKey()]), route('adminarea.testimonials.edit', ['testimonial' => $testimonial]));
     $breadcrumbs->push(trans('cortex/testimonials::common.logs'), route('adminarea.testimonials.logs', ['testimonial' => $testimonial]));
@@ -38,12 +38,12 @@ Breadcrumbs::register('managerarea.testimonials.create', function (BreadcrumbsGe
     $breadcrumbs->push(trans('cortex/testimonials::common.create_testimonial'), route('managerarea.testimonials.create'));
 });
 
-Breadcrumbs::register('managerarea.testimonials.edit', function (BreadcrumbsGenerator $breadcrumbs, TestimonialContract $testimonial) {
+Breadcrumbs::register('managerarea.testimonials.edit', function (BreadcrumbsGenerator $breadcrumbs, Testimonial $testimonial) {
     $breadcrumbs->parent('managerarea.testimonials.index');
     $breadcrumbs->push(trans('cortex/testimonials::common.testimonial', ['id' => $testimonial->getKey()]), route('managerarea.testimonials.edit', ['testimonial' => $testimonial]));
 });
 
-Breadcrumbs::register('managerarea.testimonials.logs', function (BreadcrumbsGenerator $breadcrumbs, TestimonialContract $testimonial) {
+Breadcrumbs::register('managerarea.testimonials.logs', function (BreadcrumbsGenerator $breadcrumbs, Testimonial $testimonial) {
     $breadcrumbs->parent('managerarea.testimonials.index');
     $breadcrumbs->push(trans('cortex/testimonials::common.testimonial', ['id' => $testimonial->getKey()]), route('managerarea.testimonials.edit', ['testimonial' => $testimonial]));
     $breadcrumbs->push(trans('cortex/testimonials::common.logs'), route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));

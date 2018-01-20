@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\DataTables\Adminarea;
 
+use Rinvex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Rinvex\Testimonials\Contracts\TestimonialContract;
 use Cortex\Testimonials\Transformers\Adminarea\TestimonialTransformer;
 
 class TestimonialsDataTable extends AbstractDataTable
@@ -13,7 +13,7 @@ class TestimonialsDataTable extends AbstractDataTable
     /**
      * {@inheritdoc}
      */
-    protected $model = TestimonialContract::class;
+    protected $model = Testimonial::class;
 
     /**
      * {@inheritdoc}

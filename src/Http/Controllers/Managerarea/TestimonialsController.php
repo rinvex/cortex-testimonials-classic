@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cortex\Testimonials\Http\Controllers\Managerarea;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Rinvex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Rinvex\Testimonials\Contracts\TestimonialContract;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Testimonials\DataTables\Managerarea\TestimonialsDataTable;
 use Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest;
@@ -36,11 +36,11 @@ class TestimonialsController extends AuthorizedController
     /**
      * Get a listing of the resource logs.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(TestimonialContract $testimonial)
+    public function logs(Testimonial $testimonial)
     {
         return request()->ajax() && request()->wantsJson()
             ? app(LogsDataTable::class)->with(['resource' => $testimonial])->ajax()
@@ -50,11 +50,11 @@ class TestimonialsController extends AuthorizedController
     /**
      * Show the form for create/update of the given resource.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\View\View
      */
-    public function form(TestimonialContract $testimonial)
+    public function form(Testimonial $testimonial)
     {
         $logs = app(LogsDataTable::class)->with(['id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table"])->html()->minifiedAjax(route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));
 
@@ -77,11 +77,11 @@ class TestimonialsController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest $request
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract                    $testimonial
+     * @param \Rinvex\Testimonials\Models\Testimonial                    $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(TestimonialFormRequest $request, TestimonialContract $testimonial)
+    public function update(TestimonialFormRequest $request, Testimonial $testimonial)
     {
         return $this->process($request, $testimonial);
     }
@@ -90,11 +90,11 @@ class TestimonialsController extends AuthorizedController
      * Process the form for store/update of the given resource.
      *
      * @param \Illuminate\Foundation\Http\FormRequest            $request
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    protected function process(FormRequest $request, TestimonialContract $testimonial)
+    protected function process(FormRequest $request, Testimonial $testimonial)
     {
         // Prepare required input fields
         $data = $request->validated();
@@ -111,11 +111,11 @@ class TestimonialsController extends AuthorizedController
     /**
      * Delete the given resource from storage.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\Response
      */
-    public function delete(TestimonialContract $testimonial)
+    public function delete(Testimonial $testimonial)
     {
         $testimonial->delete();
 

@@ -12,7 +12,7 @@ class TestimonialTransformer extends TransformerAbstract
     /**
      * @return array
      */
-    public function transform(TestimonialContract $testimonial)
+    public function transform(TestimonialContract $testimonial): array
     {
         return [
             'id' => (int) $testimonial->getKey(),

@@ -13,7 +13,7 @@ class TestimonialFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -23,7 +23,7 @@ class TestimonialFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $testimonial = $this->route('testimonial') ?? app('rinvex.testimonials.testimonial');
         $testimonial->updateRulesUniques();

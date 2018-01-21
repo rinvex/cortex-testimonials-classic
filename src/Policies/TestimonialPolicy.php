@@ -15,7 +15,7 @@ class TestimonialPolicy
     /**
      * Determine whether the user can list testimonials.
      *
-     * @param string                              $ability
+     * @param string                   $ability
      * @param \Rinvex\Fort\Models\User $user
      *
      * @return bool
@@ -28,7 +28,7 @@ class TestimonialPolicy
     /**
      * Determine whether the user can create testimonials.
      *
-     * @param string                              $ability
+     * @param string                   $ability
      * @param \Rinvex\Fort\Models\User $user
      *
      * @return bool
@@ -41,7 +41,7 @@ class TestimonialPolicy
     /**
      * Determine whether the user can update the testimonial.
      *
-     * @param string                                             $ability
+     * @param string                                  $ability
      * @param \Rinvex\Fort\Models\User                $user
      * @param \Rinvex\Testimonials\Models\Testimonial $resource
      *
@@ -55,7 +55,7 @@ class TestimonialPolicy
     /**
      * Determine whether the user can delete the testimonial.
      *
-     * @param string                                             $ability
+     * @param string                                  $ability
      * @param \Rinvex\Fort\Models\User                $user
      * @param \Rinvex\Testimonials\Models\Testimonial $resource
      *

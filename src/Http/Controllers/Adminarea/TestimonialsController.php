@@ -77,7 +77,7 @@ class TestimonialsController extends AuthorizedController
      * Update the given resource in storage.
      *
      * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
-     * @param \Rinvex\Testimonials\Models\Testimonial                  $testimonial
+     * @param \Rinvex\Testimonials\Models\Testimonial                             $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -89,7 +89,7 @@ class TestimonialsController extends AuthorizedController
     /**
      * Process the form for store/update of the given resource.
      *
-     * @param \Illuminate\Foundation\Http\FormRequest            $request
+     * @param \Illuminate\Foundation\Http\FormRequest $request
      * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse

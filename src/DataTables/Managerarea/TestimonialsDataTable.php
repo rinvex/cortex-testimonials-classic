@@ -6,7 +6,6 @@ namespace Cortex\Testimonials\DataTables\Managerarea;
 
 use Rinvex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Testimonials\Transformers\Managerarea\TestimonialTransformer;
 
 class TestimonialsDataTable extends AbstractDataTable
 {
@@ -14,11 +13,6 @@ class TestimonialsDataTable extends AbstractDataTable
      * {@inheritdoc}
      */
     protected $model = Testimonial::class;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $transformer = TestimonialTransformer::class;
 
     /**
      * Get columns.

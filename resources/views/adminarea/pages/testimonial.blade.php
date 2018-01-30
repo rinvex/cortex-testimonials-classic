@@ -27,10 +27,7 @@
 
             <div class="nav-tabs-custom">
                 @if($testimonial->exists && $currentUser->can('delete-testimonials', $testimonial)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('adminarea.testimonials.delete', ['testimonial' => $testimonial]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'testimonial', 'name' => $testimonial->name]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/testimonials::common.details') }}</a></li>
-                    @if($testimonial->exists) <li><a href="#logs-tab" data-toggle="tab">{{ trans('cortex/testimonials::common.logs') }}</a></li> @endif
-                </ul>
+                {!! Menu::render('adminarea.testimonials.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
@@ -95,14 +92,6 @@
 
                     </div>
 
-                    @if($testimonial->exists)
-
-                        <div class="tab-pane" id="logs-tab">
-                            {!! $logs->table(['class' => 'table table-striped table-hover responsive dataTableBuilder', 'id' => "adminarea-testimonials-{$testimonial->getKey()}-logs-table"]) !!}
-                        </div>
-
-                    @endif
-
                 </div>
 
             </div>
@@ -112,23 +101,3 @@
     </div>
 
 @endsection
-
-@if($testimonial->exists)
-
-    @push('head-elements')
-        <meta name="turbolinks-cache-control" content="no-cache">
-    @endpush
-
-    @push('styles')
-        <link href="{{ mix('css/datatables.css', 'assets') }}" rel="stylesheet">
-    @endpush
-
-    @push('vendor-scripts')
-        <script src="{{ mix('js/datatables.js', 'assets') }}" defer></script>
-    @endpush
-
-    @push('inline-scripts')
-        {!! $logs->scripts() !!}
-    @endpush
-
-@endif

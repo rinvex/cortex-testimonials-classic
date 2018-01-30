@@ -40,11 +40,14 @@ class TestimonialsController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(Testimonial $testimonial)
+    public function logs(Testimonial $testimonial, LogsDataTable $logsDataTable)
     {
-        return request()->ajax() && request()->wantsJson()
-            ? app(LogsDataTable::class)->with(['resource' => $testimonial])->ajax()
-            : intend(['url' => route('adminarea.testimonials.edit', ['testimonial' => $testimonial]).'#logs-tab']);
+        return $logsDataTable->with([
+            'resource' => $testimonial,
+            'tabs' => 'adminarea.testimonials.tabs',
+            'phrase' => trans('cortex/testimonials::common.testimonials'),
+            'id' => "adminarea-testimonials-{$testimonial->getKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
     /**
@@ -56,9 +59,7 @@ class TestimonialsController extends AuthorizedController
      */
     public function form(Testimonial $testimonial)
     {
-        $logs = app(LogsDataTable::class)->with(['id' => "adminarea-testimonials-{$testimonial->getKey()}-logs-table"])->html()->minifiedAjax(route('adminarea.testimonials.logs', ['testimonial' => $testimonial]));
-
-        return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial', 'logs'));
+        return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial'));
     }
 
     /**

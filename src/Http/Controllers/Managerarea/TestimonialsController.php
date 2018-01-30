@@ -40,11 +40,14 @@ class TestimonialsController extends AuthorizedController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(Testimonial $testimonial)
+    public function logs(Testimonial $testimonial, LogsDataTable $logsDataTable)
     {
-        return request()->ajax() && request()->wantsJson()
-            ? app(LogsDataTable::class)->with(['resource' => $testimonial])->ajax()
-            : intend(['url' => route('adminarea.testimonials.edit', ['testimonial' => $testimonial]).'#logs-tab']);
+        return $logsDataTable->with([
+            'resource' => $testimonial,
+            'tabs' => 'managerarea.testimonials.tabs',
+            'phrase' => trans('cortex/testimonials::common.testimonials'),
+            'id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table",
+        ])->render('cortex/tenants::managerarea.pages.datatable-logs');
     }
 
     /**

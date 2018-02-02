@@ -21,4 +21,16 @@ class RollbackCommand extends BaseRollbackCommand
      * @var string
      */
     protected $description = 'Rollback Cortex Testimonials Tables.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle(): void
+    {
+        $this->call('migrate:reset', ['--path' => 'app/cortex/testimonials/database/migrations', '--force' => $this->option('force')]);
+
+        parent::handle();
+    }
 }

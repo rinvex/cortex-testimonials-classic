@@ -19,7 +19,7 @@ class TestimonialsController extends AuthorizedController
     protected $resource = 'testimonial';
 
     /**
-     * Display a listing of the resource.
+     * List all testimonials.
      *
      * @param \Cortex\Testimonials\DataTables\Adminarea\TestimonialsDataTable $testimonialsDataTable
      *
@@ -34,9 +34,10 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Get a listing of the resource logs.
+     * List testimonial logs.
      *
-     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial     $testimonial
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -51,9 +52,9 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Show the form for create/update of the given resource.
+     * Create new testimonial.
      *
-     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\View\View
      */
@@ -87,22 +88,23 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new testimonial.
      *
      * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
+     * @param \Cortex\Testimonials\Models\Testimonial                             $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(TestimonialFormRequest $request)
+    public function store(TestimonialFormRequest $request, Testimonial $testimonial)
     {
-        return $this->process($request, app('rinvex.testimonials.testimonial'));
+        return $this->process($request, $testimonial);
     }
 
     /**
-     * Update the given resource in storage.
+     * Update given testimonial.
      *
      * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
-     * @param \Rinvex\Testimonials\Models\Testimonial                             $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial                             $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -112,10 +114,10 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Process the form for store/update of the given resource.
+     * Process stored/updated testimonial.
      *
      * @param \Illuminate\Foundation\Http\FormRequest $request
-     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -134,9 +136,9 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Delete the given resource from storage.
+     * Destroy given testimonial.
      *
-     * @param \Rinvex\Testimonials\Models\Testimonial $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\Response
      */

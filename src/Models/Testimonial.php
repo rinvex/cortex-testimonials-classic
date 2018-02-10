@@ -63,14 +63,7 @@ class Testimonial extends BaseTestimonial
      *
      * @var array
      */
-    protected static $logAttributes = [
-        'subject_id',
-        'subject_type',
-        'attestant_id',
-        'attestant_type',
-        'is_approved',
-        'body',
-    ];
+    protected static $logFillable = true;
 
     /**
      * The attributes that are ignored on change.

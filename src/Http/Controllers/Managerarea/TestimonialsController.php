@@ -16,7 +16,7 @@ class TestimonialsController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'testimonials';
+    protected $resource = 'testimonial';
 
     /**
      * Display a listing of the resource.

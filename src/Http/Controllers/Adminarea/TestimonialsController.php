@@ -57,7 +57,31 @@ class TestimonialsController extends AuthorizedController
      *
      * @return \Illuminate\View\View
      */
-    public function form(Testimonial $testimonial)
+    public function create(Testimonial $testimonial)
+    {
+        return $this->form($testimonial);
+    }
+
+    /**
+     * Edit given testimonial.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Testimonial $testimonial)
+    {
+        return $this->form($testimonial);
+    }
+
+    /**
+     * Show testimonial create/edit form.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Testimonial $testimonial)
     {
         return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial'));
     }

@@ -57,11 +57,33 @@ class TestimonialsController extends AuthorizedController
      *
      * @return \Illuminate\View\View
      */
-    public function form(Testimonial $testimonial)
+    public function create(Testimonial $testimonial)
     {
-        $logs = app(LogsDataTable::class)->with(['id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table"])->html()->minifiedAjax(route('managerarea.testimonials.logs', ['testimonial' => $testimonial]));
+        return $this->form($testimonial);
+    }
 
-        return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial', 'logs'));
+    /**
+     * Edit given testimonial.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Testimonial $testimonial)
+    {
+        return $this->form($testimonial);
+    }
+
+    /**
+     * Show testimonial create/edit form.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Testimonial $testimonial)
+    {
+        return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial'));
     }
 
     /**

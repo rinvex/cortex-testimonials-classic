@@ -12,9 +12,9 @@ Route::domain(domain())->group(function () {
         // Testimonials Routes
         Route::name('testimonials.')->prefix('testimonials')->group(function () {
             Route::get('/')->name('index')->uses('TestimonialsController@index');
-            Route::get('create')->name('create')->uses('TestimonialsController@form');
+            Route::get('create')->name('create')->uses('TestimonialsController@create');
             Route::post('create')->name('store')->uses('TestimonialsController@store');
-            Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@form');
+            Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@edit');
             Route::put('{testimonial}')->name('update')->uses('TestimonialsController@update');
             Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
             Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');
@@ -35,9 +35,9 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             // Testimonials Routes
             Route::name('testimonials.')->prefix('testimonials')->group(function () {
                 Route::get('/')->name('index')->uses('TestimonialsController@index');
-                Route::get('create')->name('create')->uses('TestimonialsController@form');
+                Route::get('create')->name('create')->uses('TestimonialsController@create');
                 Route::post('create')->name('store')->uses('TestimonialsController@store');
-                Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@form');
+                Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@edit');
                 Route::put('{testimonial}')->name('update')->uses('TestimonialsController@update');
                 Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
                 Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');

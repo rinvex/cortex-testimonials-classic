@@ -116,7 +116,7 @@ class TestimonialsController extends AuthorizedController
      *
      * @return \Illuminate\Http\Response
      */
-    public function delete(Testimonial $testimonial)
+    public function destroy(Testimonial $testimonial)
     {
         $testimonial->delete();
 

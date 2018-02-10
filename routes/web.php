@@ -17,7 +17,7 @@ Route::domain(domain())->group(function () {
             Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@form');
             Route::put('{testimonial}')->name('update')->uses('TestimonialsController@update');
             Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
-            Route::delete('{testimonial}')->name('delete')->uses('TestimonialsController@delete');
+            Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');
         });
 
     });
@@ -40,7 +40,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                 Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@form');
                 Route::put('{testimonial}')->name('update')->uses('TestimonialsController@update');
                 Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
-                Route::delete('{testimonial}')->name('delete')->uses('TestimonialsController@delete');
+                Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');
             });
         });
 });

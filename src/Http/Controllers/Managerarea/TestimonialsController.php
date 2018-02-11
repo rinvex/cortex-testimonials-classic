@@ -91,7 +91,7 @@ class TestimonialsController extends AuthorizedController
      * Store new testimonial.
      *
      * @param \Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest $request
-     * @param \Cortex\Testimonials\Models\Testimonial                             $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial                               $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -104,7 +104,7 @@ class TestimonialsController extends AuthorizedController
      * Update given testimonial.
      *
      * @param \Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest $request
-     * @param \Cortex\Testimonials\Models\Testimonial                             $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial                               $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

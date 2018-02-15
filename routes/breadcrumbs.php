@@ -29,7 +29,7 @@ Breadcrumbs::register('adminarea.testimonials.logs', function (BreadcrumbsGenera
 
 // Managerarea breadcrumbs
 Breadcrumbs::register('managerarea.testimonials.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/tenants::common.managerarea'), route('managerarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.managerarea'), route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/testimonials::common.testimonials'), route('managerarea.testimonials.index'));
 });
 

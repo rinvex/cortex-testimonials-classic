@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\DataTables\Adminarea;
 
-use Rinvex\Testimonials\Models\Testimonial;
+use Cortex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\AbstractDataTable;
 
 class TestimonialsDataTable extends AbstractDataTable

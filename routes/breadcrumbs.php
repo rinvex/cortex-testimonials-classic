@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Rinvex\Testimonials\Models\Testimonial;
+use Cortex\Testimonials\Models\Testimonial;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 // Adminarea breadcrumbs

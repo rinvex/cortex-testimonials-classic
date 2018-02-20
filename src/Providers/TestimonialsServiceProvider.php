@@ -6,7 +6,6 @@ namespace Cortex\Testimonials\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Testimonials\Models\Testimonial;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Testimonials\Console\Commands\SeedCommand;
 use Cortex\Testimonials\Console\Commands\InstallCommand;
@@ -53,7 +52,7 @@ class TestimonialsServiceProvider extends ServiceProvider
     {
         // Bind route models and constrains
         $router->pattern('testimonial', '[0-9]+');
-        $router->model('testimonial', Testimonial::class);
+        $router->model('testimonial', config('rinvex.testimonials.models.testimonial'));
 
         // Map relations
         Relation::morphMap([

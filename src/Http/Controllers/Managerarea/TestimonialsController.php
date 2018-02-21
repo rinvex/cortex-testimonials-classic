@@ -30,7 +30,7 @@ class TestimonialsController extends AuthorizedController
         return $testimonialsDataTable->with([
             'id' => 'managerarea-testimonials-index-table',
             'phrase' => trans('cortex/testimonials::common.testimonials'),
-        ])->render('cortex/tenants::managerarea.pages.datatable');
+        ])->render('cortex/foundation::managerarea.pages.datatable');
     }
 
     /**
@@ -48,7 +48,7 @@ class TestimonialsController extends AuthorizedController
             'tabs' => 'managerarea.testimonials.tabs',
             'phrase' => trans('cortex/testimonials::common.testimonials'),
             'id' => "managerarea-testimonials-{$testimonial->getKey()}-logs-table",
-        ])->render('cortex/tenants::managerarea.pages.datatable-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-logs');
     }
 
     /**

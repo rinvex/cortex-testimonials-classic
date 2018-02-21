@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Http\Controllers\Managerarea;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Testimonials\Models\Testimonial;
+use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Testimonials\DataTables\Managerarea\TestimonialsDataTable;

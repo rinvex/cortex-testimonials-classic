@@ -65,7 +65,7 @@ class TestimonialsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/testimonials');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/testimonials');
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-        $this->app->afterResolving('blade.compiler', function () {
+        $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
             require __DIR__.'/../../routes/menus.php';
         });
 

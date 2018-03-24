@@ -13,7 +13,8 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'submit' => 'Submit',
-
+    'file' => 'File',
+    'import' => 'Import',
     'testimonial' => 'Testimonial #:id',
 
     // Testimonials

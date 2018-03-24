@@ -12,6 +12,9 @@ Route::domain(domain())->group(function () {
         // Testimonials Routes
         Route::name('testimonials.')->prefix('testimonials')->group(function () {
             Route::get('/')->name('index')->uses('TestimonialsController@index');
+            Route::get('import')->name('import')->uses('TestimonialsController@import');
+            Route::post('import')->name('hoard')->uses('TestimonialsController@hoard');
+            Route::get('import/logs')->name('import.logs')->uses('TestimonialsController@importLogs');
             Route::get('create')->name('create')->uses('TestimonialsController@create');
             Route::post('create')->name('store')->uses('TestimonialsController@store');
             Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@edit');
@@ -35,6 +38,9 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             // Testimonials Routes
             Route::name('testimonials.')->prefix('testimonials')->group(function () {
                 Route::get('/')->name('index')->uses('TestimonialsController@index');
+                Route::get('import')->name('import')->uses('TestimonialsController@import');
+                Route::post('import')->name('hoard')->uses('TestimonialsController@hoard');
+                Route::get('import/logs')->name('import.logs')->uses('TestimonialsController@importLogs');
                 Route::get('create')->name('create')->uses('TestimonialsController@create');
                 Route::post('create')->name('store')->uses('TestimonialsController@store');
                 Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@edit');

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Http\Controllers\Adminarea;
 
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
@@ -49,6 +52,54 @@ class TestimonialsController extends AuthorizedController
             'phrase' => trans('cortex/testimonials::common.testimonials'),
             'id' => "adminarea-testimonials-{$testimonial->getKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+    }
+
+    /**
+     * Import testimonials.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
+    {
+        return view('cortex/foundation::adminarea.pages.import', [
+            'id' => 'adminarea-testimonials-import',
+            'tabs' => 'adminarea.testimonials.tabs',
+            'url' => route('adminarea.testimonials.hoard'),
+            'phrase' => trans('cortex/testimonials::common.testimonials'),
+        ]);
+    }
+
+    /**
+     * Hoard testimonials.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'id';
+        $importer->handleImport();
+    }
+
+    /**
+     * List testimonial import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => 'testimonial',
+            'tabs' => 'adminarea.testimonials.tabs',
+            'id' => 'adminarea-testimonials-import-logs-table',
+            'phrase' => trans('cortex/testimonials::common.testimonials'),
+        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
     }
 
     /**

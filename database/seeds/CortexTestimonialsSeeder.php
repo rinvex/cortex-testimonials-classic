@@ -18,11 +18,5 @@ class CortexTestimonialsSeeder extends Seeder
         Bouncer::allow('admin')->to('update', config('rinvex.testimonials.models.testimonial'));
         Bouncer::allow('admin')->to('delete', config('rinvex.testimonials.models.testimonial'));
         Bouncer::allow('admin')->to('audit', config('rinvex.testimonials.models.testimonial'));
-
-        Bouncer::allow('owner')->to('list', config('rinvex.testimonials.models.testimonial'));
-        Bouncer::allow('owner')->to('create', config('rinvex.testimonials.models.testimonial'));
-        Bouncer::allow('owner')->to('update', config('rinvex.testimonials.models.testimonial'));
-        Bouncer::allow('owner')->to('delete', config('rinvex.testimonials.models.testimonial'));
-        Bouncer::allow('owner')->to('audit', config('rinvex.testimonials.models.testimonial'));
     }
 }

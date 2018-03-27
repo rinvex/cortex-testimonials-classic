@@ -6,6 +6,7 @@ namespace Cortex\Testimonials\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Testimonials\Console\Commands\SeedCommand;
 use Cortex\Testimonials\Console\Commands\InstallCommand;
@@ -39,6 +40,10 @@ class TestimonialsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Bind eloquent models to IoC container
+        $this->app['config']['rinvex.testimonials.models.testimonial'] === Testimonial::class
+        || $this->app->alias('rinvex.testimonials.testimonial', Testimonial::class);
+
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
     }

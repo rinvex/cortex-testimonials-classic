@@ -14,6 +14,7 @@ class CortexTestimonialsSeeder extends Seeder
     public function run()
     {
         Bouncer::allow('admin')->to('list', config('rinvex.testimonials.models.testimonial'));
+        Bouncer::allow('admin')->to('import', config('rinvex.testimonials.models.testimonial'));
         Bouncer::allow('admin')->to('create', config('rinvex.testimonials.models.testimonial'));
         Bouncer::allow('admin')->to('update', config('rinvex.testimonials.models.testimonial'));
         Bouncer::allow('admin')->to('delete', config('rinvex.testimonials.models.testimonial'));

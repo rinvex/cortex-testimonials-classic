@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest::class)->selector("#managerarea-testimonials-create-form, #managerarea-testimonials-{$testimonial->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest::class)->selector("#managerarea-testimonials-create-form, #managerarea-testimonials-{$testimonial->getRouteKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -34,7 +34,7 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($testimonial->exists)
-                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "managerarea-testimonials-{$testimonial->getKey()}-update-form"]) }}
+                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-update-form"]) }}
                         @else
                             {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.store'), 'id' => 'managerarea-testimonials-create-form']) }}
                         @endif

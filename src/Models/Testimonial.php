@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Models;
 
+use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -49,6 +50,7 @@ class Testimonial extends BaseTestimonial
 {
     use Auditable;
     use Tenantable;
+    use HashidsTrait;
     use LogsActivity;
 
     /**

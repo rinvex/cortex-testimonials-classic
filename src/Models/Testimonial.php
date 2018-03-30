@@ -23,7 +23,7 @@ use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
  * @property \Carbon\Carbon|null                                                             $created_at
  * @property \Carbon\Carbon|null                                                             $updated_at
  * @property \Carbon\Carbon|null                                                             $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent                              $attestant
+ * @property-read \Cortex\Auth\Models\User|\Illuminate\Database\Eloquent\Model|\Eloquent     $attestant
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent                              $subject
  * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[]        $tenants
  *

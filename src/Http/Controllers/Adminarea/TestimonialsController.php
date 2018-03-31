@@ -182,7 +182,7 @@ class TestimonialsController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.testimonials.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'testimonial', 'id' => $testimonial->getRouteKey()])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'testimonial', 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }
 
@@ -199,7 +199,7 @@ class TestimonialsController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.testimonials.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'testimonial', 'id' => $testimonial->getRouteKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'testimonial', 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Models;
 
-use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
+use Rinvex\Support\Traits\HashidsTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
 

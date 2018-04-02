@@ -33,8 +33,8 @@ class TestimonialsDataTable extends AbstractDataTable
 
         return [
             'body' => ['title' => trans('cortex/testimonials::common.body'), 'render' => $link.'+(full.is_approved ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
-            'created_at' => ['title' => trans('cortex/testimonials::common.created_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
-            'updated_at' => ['title' => trans('cortex/testimonials::common.updated_at'), 'render' => "moment(data).format('MMM Do, YYYY')"],
+            'created_at' => ['title' => trans('cortex/testimonials::common.created_at'), 'render' => "moment(data).format('MMMM Do YYYY, hh:mm:ss A')"],
+            'updated_at' => ['title' => trans('cortex/testimonials::common.updated_at'), 'render' => "moment(data).format('MMMM Do YYYY, hh:mm:ss A')"],
         ];
     }
 }

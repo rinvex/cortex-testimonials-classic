@@ -92,7 +92,7 @@ class TestimonialsController extends AuthorizedController
     public function importLogs(ImportLogsDataTable $importLogsDatatable)
     {
         return $importLogsDatatable->with([
-            'resource' => 'testimonial',
+            'resource' => trans('cortex/testimonials::common.testimonial'),
             'tabs' => 'adminarea.testimonials.tabs',
             'id' => 'adminarea-testimonials-import-logs-table',
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
@@ -178,7 +178,7 @@ class TestimonialsController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.testimonials.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'testimonial', 'identifier' => $testimonial->getRouteKey()])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }
 
@@ -195,7 +195,7 @@ class TestimonialsController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.testimonials.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'testimonial', 'identifier' => $testimonial->getRouteKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }
 }

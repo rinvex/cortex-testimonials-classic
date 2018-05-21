@@ -13,7 +13,7 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'submit' => 'Submit',
-    'file' => 'File',
+    'records' => 'Records',
     'import' => 'Import',
     'testimonial' => 'Testimonial #:id',
 

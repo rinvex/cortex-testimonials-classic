@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Http\Controllers\Managerarea;
 
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Testimonials\Models\Testimonial;
+use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
@@ -55,31 +57,66 @@ class TestimonialsController extends AuthorizedController
     /**
      * Import testimonials.
      *
+     * @param \Cortex\Testimonials\Models\Testimonial              $testimonial
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
      * @return \Illuminate\View\View
      */
-    public function import()
+    public function import(Testimonial $testimonial, ImportRecordsDataTable $importRecordsDataTable)
     {
-        return view('cortex/foundation::adminarea.pages.import', [
-            'id' => 'adminarea-testimonials-import',
-            'tabs' => 'adminarea.testimonials.tabs',
-            'url' => route('adminarea.testimonials.hoard'),
-        ]);
+        return $importRecordsDataTable->with([
+            'resource' => $testimonial,
+            'tabs' => 'managerarea.testimonials.tabs',
+            'url' => route('managerarea.testimonials.stash'),
+            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
     }
 
     /**
-     * Hoard testimonials.
+     * Stash testimonials.
      *
      * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
      * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
      *
      * @return void
      */
-    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
     {
         // Handle the import
         $importer->config['resource'] = $this->resource;
         $importer->config['name'] = 'id';
         $importer->handleImport();
+    }
+
+    /**
+     * Hoard testimonials.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.testimonials.testimonial')->getFillable()))->toArray();
+
+                tap(app('rinvex.testimonials.testimonial')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
     }
 
     /**
@@ -93,9 +130,9 @@ class TestimonialsController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => trans('cortex/testimonials::common.testimonial'),
-            'tabs' => 'adminarea.testimonials.tabs',
-            'id' => 'adminarea-testimonials-import-logs-table',
-        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+            'tabs' => 'managerarea.testimonials.tabs',
+            'id' => 'managerarea-testimonials-import-logs-table',
+        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
     /**

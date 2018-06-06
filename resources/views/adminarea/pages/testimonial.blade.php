@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector("#adminarea-testimonials-create-form, #adminarea-testimonials-{$testimonial->getRouteKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector("#adminarea-testimonials-create-form, #adminarea-testimonials-{$testimonial->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

@@ -74,6 +74,11 @@
             "Cortex\\Testimonials\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Cortex\\Testimonials\\Tests\\": "tests"
+        }
+    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,

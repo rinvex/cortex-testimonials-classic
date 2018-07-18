@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Cortex\Testimonials\Models\Testimonial;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 Breadcrumbs::register('managerarea.testimonials.index', function (BreadcrumbsGenerator $breadcrumbs) {

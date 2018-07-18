@@ -224,7 +224,9 @@ class TestimonialsController extends AuthorizedController
      *
      * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Testimonial $testimonial)
     {

@@ -17,8 +17,9 @@ Route::domain(domain())->group(function () {
                  Route::get('import/logs')->name('import.logs')->uses('TestimonialsController@importLogs');
                  Route::get('create')->name('create')->uses('TestimonialsController@create');
                  Route::post('create')->name('store')->uses('TestimonialsController@store');
-                 Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@edit');
-                 Route::put('{testimonial}')->name('update')->uses('TestimonialsController@update');
+                 Route::get('{testimonial}')->name('show')->uses('TestimonialsController@show');
+                 Route::get('{testimonial}/edit')->name('edit')->uses('TestimonialsController@edit');
+                 Route::put('{testimonial}/edit')->name('update')->uses('TestimonialsController@update');
                  Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
                  Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');
              });
@@ -40,8 +41,9 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                  Route::get('import/logs')->name('import.logs')->uses('TestimonialsController@importLogs');
                  Route::get('create')->name('create')->uses('TestimonialsController@create');
                  Route::post('create')->name('store')->uses('TestimonialsController@store');
-                 Route::get('{testimonial}')->name('edit')->uses('TestimonialsController@edit');
-                 Route::put('{testimonial}')->name('update')->uses('TestimonialsController@update');
+                 Route::get('{testimonial}')->name('show')->uses('TestimonialsController@show');
+                 Route::get('{testimonial}/edit')->name('edit')->uses('TestimonialsController@edit');
+                 Route::put('{testimonial}/edit')->name('update')->uses('TestimonialsController@update');
                  Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
                  Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');
              });

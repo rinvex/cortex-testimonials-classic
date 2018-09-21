@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Http\Controllers\Adminarea;
 
-use Illuminate\Http\Request;
+use Exception;
+use Cortex\Testimonials\Models\Testimonial;
+use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
-use Rinvex\Testimonials\Contracts\TestimonialContract;
+use Cortex\Foundation\Importers\DefaultImporter;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Testimonials\DataTables\Adminarea\TestimonialsDataTable;
 use Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest;
@@ -16,10 +21,10 @@ class TestimonialsController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = 'testimonials';
+    protected $resource = Testimonial::class;
 
     /**
-     * Display a listing of the resource.
+     * List all testimonials.
      *
      * @param \Cortex\Testimonials\DataTables\Adminarea\TestimonialsDataTable $testimonialsDataTable
      *
@@ -28,106 +33,208 @@ class TestimonialsController extends AuthorizedController
     public function index(TestimonialsDataTable $testimonialsDataTable)
     {
         return $testimonialsDataTable->with([
-            'id' => 'cortex-testimonials',
-            'phrase' => trans('cortex/testimonials::common.testimonials'),
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+            'id' => 'adminarea-testimonials-index-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
-     * Display a listing of the resource logs.
+     * List testimonial logs.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $category
-     * @param \Cortex\Foundation\DataTables\LogsDataTable        $logsDataTable
+     * @param \Cortex\Testimonials\Models\Testimonial     $testimonial
+     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function logs(TestimonialContract $testimonial, LogsDataTable $logsDataTable)
+    public function logs(Testimonial $testimonial, LogsDataTable $logsDataTable)
     {
         return $logsDataTable->with([
-            'tab' => 'logs',
-            'type' => 'testimonials',
             'resource' => $testimonial,
-            'id' => 'cortex-testimonials-logs',
-            'phrase' => trans('cortex/testimonials::common.testimonials'),
-            'title' => trans('cortex/testimonials::common.user_testimonial', ['user' => $testimonial->user->username, 'id' => $testimonial->id]),
+            'tabs' => 'adminarea.testimonials.tabs',
+            'id' => "adminarea-testimonials-{$testimonial->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Import testimonials.
      *
-     * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
+     * @param \Cortex\Testimonials\Models\Testimonial              $testimonial
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function store(TestimonialFormRequest $request)
+    public function import(Testimonial $testimonial, ImportRecordsDataTable $importRecordsDataTable)
     {
-        return $this->process($request, app('rinvex.testimonials.testimonial'));
+        return $importRecordsDataTable->with([
+            'resource' => $testimonial,
+            'tabs' => 'adminarea.testimonials.tabs',
+            'url' => route('adminarea.testimonials.stash'),
+            'id' => "adminarea-testimonials-{$testimonial->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
     }
 
     /**
-     * Update the given resource in storage.
+     * Stash testimonials.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'id';
+        $importer->handleImport();
+    }
+
+    /**
+     * Hoard testimonials.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.testimonials.testimonial')->getFillable()))->toArray();
+
+                tap(app('rinvex.testimonials.testimonial')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
+    }
+
+    /**
+     * List testimonial import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => trans('cortex/testimonials::common.testimonial'),
+            'tabs' => 'adminarea.testimonials.tabs',
+            'id' => 'adminarea-testimonials-import-logs-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
+    }
+
+    /**
+     * Create new testimonial.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Testimonial $testimonial)
+    {
+        return $this->form($testimonial);
+    }
+
+    /**
+     * Edit given testimonial.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Testimonial $testimonial)
+    {
+        return $this->form($testimonial);
+    }
+
+    /**
+     * Show testimonial create/edit form.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Testimonial $testimonial)
+    {
+        return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial'));
+    }
+
+    /**
+     * Store new testimonial.
      *
      * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract                  $testimonial
+     * @param \Cortex\Testimonials\Models\Testimonial                             $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(TestimonialFormRequest $request, TestimonialContract $testimonial)
+    public function store(TestimonialFormRequest $request, Testimonial $testimonial)
     {
         return $this->process($request, $testimonial);
     }
 
     /**
-     * Delete the given resource from storage.
+     * Update given testimonial.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     * @param \Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest $request
+     * @param \Cortex\Testimonials\Models\Testimonial                             $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function delete(TestimonialContract $testimonial)
+    public function update(TestimonialFormRequest $request, Testimonial $testimonial)
     {
-        $testimonial->delete();
-
-        return intend([
-            'url' => route('adminarea.testimonials.index'),
-            'with' => ['warning' => trans('cortex/testimonials::messages.testimonial.deleted', ['id' => $testimonial->id])],
-        ]);
+        return $this->process($request, $testimonial);
     }
 
     /**
-     * Show the form for create/update of the given resource.
+     * Process stored/updated testimonial.
      *
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
+     * @param \Illuminate\Foundation\Http\FormRequest $request
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function form(TestimonialContract $testimonial)
-    {
-        $users = app('rinvex.fort.user')->all()->pluck('username', 'id');
-
-        return view('cortex/testimonials::adminarea.pages.testimonial', compact('testimonial', 'users'));
-    }
-
-    /**
-     * Process the form for store/update of the given resource.
-     *
-     * @param \Illuminate\Http\Request                           $request
-     * @param \Rinvex\Testimonials\Contracts\TestimonialContract $testimonial
-     *
-     * @return \Illuminate\Http\Response
-     */
-    protected function process(Request $request, TestimonialContract $testimonial)
+    protected function process(FormRequest $request, Testimonial $testimonial)
     {
         // Prepare required input fields
-        $data = $request->all();
+        $data = $request->validated();
 
         // Save testimonial
         $testimonial->fill($data)->save();
 
         return intend([
             'url' => route('adminarea.testimonials.index'),
-            'with' => ['success' => trans('cortex/testimonials::messages.testimonial.saved', ['id' => $testimonial->id])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()])],
+        ]);
+    }
+
+    /**
+     * Destroy given testimonial.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Testimonial $testimonial)
+    {
+        $testimonial->delete();
+
+        return intend([
+            'url' => route('adminarea.testimonials.index'),
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }
 }

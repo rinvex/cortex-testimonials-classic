@@ -6,9 +6,9 @@ namespace Cortex\Testimonials\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Testimonials\Console\Commands\SeedCommand;
-use Rinvex\Testimonials\Contracts\TestimonialContract;
 use Cortex\Testimonials\Console\Commands\InstallCommand;
 use Cortex\Testimonials\Console\Commands\MigrateCommand;
 use Cortex\Testimonials\Console\Commands\PublishCommand;
@@ -38,8 +38,12 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
+        // Bind eloquent models to IoC container
+        $this->app['config']['rinvex.testimonials.models.testimonial'] === Testimonial::class
+        || $this->app->alias('rinvex.testimonials.testimonial', Testimonial::class);
+
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
     }
@@ -49,11 +53,11 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
         // Bind route models and constrains
-        $router->pattern('testimonial', '[0-9]+');
-        $router->model('testimonial', TestimonialContract::class);
+        $router->pattern('testimonial', '[a-zA-Z0-9-]+');
+        $router->model('testimonial', config('rinvex.testimonials.models.testimonial'));
 
         // Map relations
         Relation::morphMap([
@@ -61,13 +65,13 @@ class TestimonialsServiceProvider extends ServiceProvider
         ]);
 
         // Load resources
-        require __DIR__.'/../../routes/breadcrumbs.php';
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
+        require __DIR__.'/../../routes/breadcrumbs/adminarea.php';
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/testimonials');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/testimonials');
         ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-        $this->app->afterResolving('blade.compiler', function () {
-            require __DIR__.'/../../routes/menus.php';
+        $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
+            require __DIR__.'/../../routes/menus/adminarea.php';
         });
 
         // Publish Resources
@@ -79,8 +83,9 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function publishResources()
+    protected function publishResources(): void
     {
+        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'cortex-testimonials-migrations');
         $this->publishes([realpath(__DIR__.'/../../resources/lang') => resource_path('lang/vendor/cortex/testimonials')], 'cortex-testimonials-lang');
         $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/testimonials')], 'cortex-testimonials-views');
     }
@@ -90,13 +95,11 @@ class TestimonialsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));

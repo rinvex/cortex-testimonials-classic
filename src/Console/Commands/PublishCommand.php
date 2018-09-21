@@ -27,11 +27,12 @@ class PublishCommand extends BasePublishCommand
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         parent::handle();
 
-        $this->call('vendor:publish', ['--tag' => 'cortex-testimonials-views', '--force' => $this->option('force')]);
         $this->call('vendor:publish', ['--tag' => 'cortex-testimonials-lang', '--force' => $this->option('force')]);
+        $this->call('vendor:publish', ['--tag' => 'cortex-testimonials-views', '--force' => $this->option('force')]);
+        $this->call('vendor:publish', ['--tag' => 'cortex-testimonials-migrations', '--force' => $this->option('force')]);
     }
 }

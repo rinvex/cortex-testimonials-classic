@@ -13,7 +13,7 @@ class MigrateCommand extends BaseMigrateCommand
      *
      * @var string
      */
-    protected $signature = 'cortex:migrate:testimonials';
+    protected $signature = 'cortex:migrate:testimonials {--force : Force the operation to run when in production.}';
 
     /**
      * The console command description.
@@ -21,4 +21,16 @@ class MigrateCommand extends BaseMigrateCommand
      * @var string
      */
     protected $description = 'Migrate Cortex Testimonials Tables.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle(): void
+    {
+        parent::handle();
+
+        $this->call('migrate', ['--step' => true, '--path' => 'app/cortex/testimonials/database/migrations', '--force' => $this->option('force')]);
+    }
 }

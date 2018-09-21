@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Transformers\Managerarea;
 
+use Rinvex\Support\Traits\Escaper;
 use League\Fractal\TransformerAbstract;
-use Rinvex\Testimonials\Contracts\TestimonialContract;
+use Cortex\Testimonials\Models\Testimonial;
 
 class TestimonialTransformer extends TransformerAbstract
 {
+    use Escaper;
+
     /**
      * @return array
      */
-    public function transform(TestimonialContract $testimonial)
+    public function transform(Testimonial $testimonial): array
     {
-        return [
-            'id' => (int) $testimonial->id,
-            'body' => (string) $testimonial->body,
-            'user' => (object) $testimonial->user,
-            'is_approved' => (bool) $testimonial->is_approved,
+        return $this->escape([
+            'id' => (string) $testimonial->getRouteKey(),
             'created_at' => (string) $testimonial->created_at,
             'updated_at' => (string) $testimonial->updated_at,
-        ];
+        ]);
     }
 }

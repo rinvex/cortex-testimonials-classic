@@ -3,11 +3,11 @@
 **Cortex Testimonials** is a frontend layer for managing testimonials. Customers can give you testimonials, and you can approve or disapprove each individually. Testimonials are good for showing the passion and love your service gets from customers, encouraging others to join the hype!
 
 [![Packagist](https://img.shields.io/packagist/v/cortex/testimonials.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/testimonials)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/cortex/testimonials.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/cortex/testimonials/)
-[![Code Climate](https://img.shields.io/codeclimate/github/cortex/testimonials.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/cortex/testimonials)
-[![Travis](https://img.shields.io/travis/cortex/testimonials.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/cortex/testimonials)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/cortex-testimonials.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/cortex-testimonials/)
+[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/cortex-testimonials.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/cortex-testimonials)
+[![Travis](https://img.shields.io/travis/rinvex/cortex-testimonials.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/cortex-testimonials)
 [![StyleCI](https://styleci.io/repos/115035899/shield)](https://styleci.io/repos/115035899)
-[![License](https://img.shields.io/packagist/l/cortex/testimonials.svg?label=License&style=flat-square)](https://github.com/cortex/testimonials/blob/develop/LICENSE)
+[![License](https://img.shields.io/packagist/l/cortex/testimonials.svg?label=License&style=flat-square)](https://github.com/rinvex/cortex-testimonials/blob/develop/LICENSE)
 
 
 ## Installation and Usage

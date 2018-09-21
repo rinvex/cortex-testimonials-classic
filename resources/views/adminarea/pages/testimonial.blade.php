@@ -3,45 +3,50 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/testimonials::common.testimonials') }} » {{ $testimonial->exists ? $testimonial->name : trans('cortex/testimonials::common.create_testimonial') }}
-@stop
+    {{ extract_title(Breadcrumbs::render()) }}
+@endsection
 
-@push('scripts')
-    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector('#adminarea-testimonials-save') !!}
+@push('inline-scripts')
+    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector("#adminarea-testimonials-create-form, #adminarea-testimonials-{$testimonial->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
 @section('content')
 
     @if($testimonial->exists)
-        @include('cortex/foundation::common.partials.confirm-deletion', ['type' => 'testimonial'])
+        @include('cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
     @endif
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>{{ $testimonial->exists ? trans('cortex/testimonials::common.user_testimonial', ['user' => $testimonial->user->username, 'id' => $testimonial->id]) : trans('cortex/testimonials::common.create_testimonial') }}</h1>
-            <!-- Breadcrumbs -->
-            {{ Breadcrumbs::render() }}
+            <h1>{{ Breadcrumbs::render() }}</h1>
         </section>
 
-        <!-- Main content -->
+        {{-- Main content --}}
         <section class="content">
 
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details-tab" data-toggle="tab">{{ trans('cortex/testimonials::common.details') }}</a></li>
-                    @if($testimonial->exists) <li><a href="{{ route('adminarea.testimonials.logs', ['testimonial' => $testimonial]) }}">{{ trans('cortex/testimonials::common.logs') }}</a></li> @endif
-                    @if($testimonial->exists && $currentUser->can('delete-testimonials', $testimonial)) <li class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-item-href="{{ route('adminarea.testimonials.delete', ['testimonial' => $testimonial]) }}" data-item-name="{{ str_slug($testimonial->name) }}"><i class="fa fa-trash text-danger"></i></a></li> @endif
-                </ul>
+                @if($testimonial->exists && $currentUser->can('delete', $testimonial))
+                    <div class="pull-right">
+                        <a href="#" data-toggle="modal" data-target="#delete-confirmation"
+                           data-modal-action="{{ route('adminarea.testimonials.destroy', ['testimonial' => $testimonial]) }}"
+                           data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}"
+                           data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
+                           data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()]) !!}"
+                           title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i>
+                        </a>
+                    </div>
+                @endif
+                {!! Menu::render('adminarea.testimonials.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($testimonial->exists)
-                            {{ Form::model($testimonial, ['url' => route('adminarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => 'adminarea-testimonials-save']) }}
+                            {{ Form::model($testimonial, ['url' => route('adminarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "adminarea-testimonials-{$testimonial->getRouteKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($testimonial, ['url' => route('adminarea.testimonials.store'), 'id' => 'adminarea-testimonials-save']) }}
+                            {{ Form::model($testimonial, ['url' => route('adminarea.testimonials.store'), 'id' => 'adminarea-testimonials-create-form']) }}
                         @endif
 
                             <div class="row">
@@ -63,21 +68,6 @@
                             </div>
 
                             <div class="row">
-
-                                <div class="col-md-4">
-
-                                    {{-- User --}}
-                                    <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-                                        {{ Form::label('user_id', trans('cortex/testimonials::common.user'), ['class' => 'control-label']) }}
-                                        {{ Form::hidden('user_id', '') }}
-                                        {{ Form::select('user_id', $users, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/testimonials::common.select_user'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
-
-                                        @if ($errors->has('user_id'))
-                                            <span class="help-block">{{ $errors->first('user_id') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
 
                                 <div class="col-md-4">
 

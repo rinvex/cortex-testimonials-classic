@@ -29,10 +29,10 @@ class InstallCommand extends Command
      */
     public function handle(): void
     {
-        $this->warn($this->description);
+        $this->alert($this->description);
 
-        $this->call('cortex:migrate:testimonials', ['--force' => $this->option('force')]);
         $this->call('cortex:publish:testimonials', ['--force' => $this->option('force')]);
+        $this->call('cortex:migrate:testimonials', ['--force' => $this->option('force')]);
         $this->call('cortex:seed:testimonials');
     }
 }

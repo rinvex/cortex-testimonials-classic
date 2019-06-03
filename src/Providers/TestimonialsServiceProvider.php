@@ -79,8 +79,8 @@ class TestimonialsServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishesLang('cortex/testimonials');
-        ! $this->app->runningInConsole() || $this->publishesViews('cortex/testimonials');
-        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/testimonials');
+        ! $this->app->runningInConsole() || $this->publishesLang('cortex/testimonials', true);
+        ! $this->app->runningInConsole() || $this->publishesViews('cortex/testimonials', true);
+        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/testimonials', true);
     }
 }

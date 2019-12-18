@@ -60,7 +60,7 @@ class TestimonialsServiceProvider extends ServiceProvider
     public function boot(Router $router, Dispatcher $dispatcher): void
     {
         // Bind route models and constrains
-        $router->pattern('testimonial', '[a-zA-Z0-9-]+');
+        $router->pattern('testimonial', '[a-zA-Z0-9-_]+');
         $router->model('testimonial', config('rinvex.testimonials.models.testimonial'));
 
         // Map relations

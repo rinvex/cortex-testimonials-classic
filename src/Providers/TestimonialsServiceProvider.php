@@ -44,6 +44,9 @@ class TestimonialsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Merge config
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.testimonials');
+
         // Bind eloquent models to IoC container
         $this->app['config']['rinvex.testimonials.models.testimonial'] === Testimonial::class
         || $this->app->alias('rinvex.testimonials.testimonial', Testimonial::class);
@@ -83,5 +86,6 @@ class TestimonialsServiceProvider extends ServiceProvider
         ! $this->app->runningInConsole() || $this->publishesLang('cortex/testimonials', true);
         ! $this->app->runningInConsole() || $this->publishesViews('cortex/testimonials', true);
         ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/testimonials', true);
+        ! $this->app['config']['cortex.testimonials.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 }

@@ -83,9 +83,9 @@ class TestimonialsServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishesLang('cortex/testimonials', true);
-        ! $this->app->runningInConsole() || $this->publishesViews('cortex/testimonials', true);
-        ! $this->app->runningInConsole() || $this->publishesMigrations('cortex/testimonials', true);
-        ! $this->app['config']['cortex.testimonials.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->publishesLang('cortex/testimonials', true);
+        $this->publishesViews('cortex/testimonials', true);
+        $this->publishesMigrations('cortex/testimonials', true);
+        ! $this->autoloadMigrations('cortex.testimonials') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 }

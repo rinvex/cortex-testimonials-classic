@@ -29,7 +29,11 @@ class RollbackCommand extends BaseRollbackCommand
      */
     public function handle(): void
     {
-        if (file_exists($path = 'database/migrations/cortex/testimonials')) {
+        $path = config('cortex.testimonials.autoload_migrations') ?
+            'app/cortex/testimonials/database/migrations' :
+            'database/migrations/cortex/testimonials';
+
+        if (file_exists($path)) {
             $this->call('migrate:reset', [
                 '--path' => $path,
                 '--force' => $this->option('force'),

@@ -13,6 +13,12 @@ class TestimonialTransformer extends TransformerAbstract
     use Escaper;
 
     /**
+     * Transform testimonial model.
+     *
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @throws \Exception
+     *
      * @return array
      */
     public function transform(Testimonial $testimonial): array

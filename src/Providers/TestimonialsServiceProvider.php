@@ -76,6 +76,7 @@ class TestimonialsServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/web/managerarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/testimonials');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/testimonials');
+        ! $this->autoloadMigrations('cortex/testimonials') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         $this->app->runningInConsole() || $dispatcher->listen('accessarea.ready', function ($accessarea) {
             ! file_exists($menus = __DIR__."/../../routes/menus/{$accessarea}.php") || require $menus;
@@ -86,6 +87,5 @@ class TestimonialsServiceProvider extends ServiceProvider
         $this->publishesLang('cortex/testimonials', true);
         $this->publishesViews('cortex/testimonials', true);
         $this->publishesMigrations('cortex/testimonials', true);
-        ! $this->autoloadMigrations('cortex.testimonials') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 }

@@ -25,7 +25,6 @@ class TestimonialTransformer extends TransformerAbstract
     {
         return $this->escape([
             'id' => (string) $testimonial->getRouteKey(),
-            'DT_RowId' => 'row_'.$testimonial->getRouteKey(),
             'created_at' => (string) $testimonial->created_at,
             'updated_at' => (string) $testimonial->updated_at,
         ]);

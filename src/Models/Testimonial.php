@@ -7,13 +7,12 @@ namespace Cortex\Testimonials\Models;
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Cortex\Foundation\Traits\FiresCustomModelEvent;
-use Cortex\Foundation\Events\ModelDeleted;
 use Cortex\Foundation\Events\ModelCreated;
+use Cortex\Foundation\Events\ModelDeleted;
 use Cortex\Foundation\Events\ModelUpdated;
 use Cortex\Foundation\Events\ModelRestored;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Cortex\Foundation\Traits\FiresCustomModelEvent;
 use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
 
 /**

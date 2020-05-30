@@ -10,7 +10,7 @@ Route::domain(domain())->group(function () {
 
         // Testimonials Routes
              Route::name('testimonials.')->prefix('testimonials')->group(function () {
-                 Route::get('/')->name('index')->uses('TestimonialsController@index');
+                 Route::match(['get', 'post'], '/')->name('index')->uses('TestimonialsController@index');
                  Route::get('import')->name('import')->uses('TestimonialsController@import');
                  Route::post('import')->name('stash')->uses('TestimonialsController@stash');
                  Route::post('hoard')->name('hoard')->uses('TestimonialsController@hoard');

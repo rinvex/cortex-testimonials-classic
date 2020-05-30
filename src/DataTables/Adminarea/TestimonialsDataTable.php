@@ -32,6 +32,7 @@ class TestimonialsDataTable extends AbstractDataTable
             : '"<a href=\""+routes.route(\'adminarea.testimonials.edit\', {testimonial: full.id})+"\">"+data+"</a>"';
 
         return [
+            'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],
             'body' => ['title' => trans('cortex/testimonials::common.body'), 'render' => $link.'+(full.is_approved ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
             'created_at' => ['title' => trans('cortex/testimonials::common.created_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],
             'updated_at' => ['title' => trans('cortex/testimonials::common.updated_at'), 'render' => "moment(data).format('YYYY-MM-DD, hh:mm:ss A')"],

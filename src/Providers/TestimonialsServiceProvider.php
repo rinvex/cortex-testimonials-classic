@@ -72,8 +72,6 @@ class TestimonialsServiceProvider extends ServiceProvider
         ]);
 
         // Load resources
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web/managerarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/testimonials');
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/testimonials');
         ! $this->autoloadMigrations('cortex/testimonials') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

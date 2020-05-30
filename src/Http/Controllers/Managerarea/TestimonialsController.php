@@ -33,7 +33,7 @@ class TestimonialsController extends AuthorizedController
     public function index(TestimonialsDataTable $testimonialsDataTable)
     {
         return $testimonialsDataTable->with([
-            'id' => 'managerarea-testimonials-index-table',
+            'id' => 'managerarea-testimonials-index',
         ])->render('cortex/foundation::managerarea.pages.datatable-index');
     }
 
@@ -50,7 +50,7 @@ class TestimonialsController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $testimonial,
             'tabs' => 'managerarea.testimonials.tabs',
-            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-logs-table",
+            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-logs",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -68,7 +68,7 @@ class TestimonialsController extends AuthorizedController
             'resource' => $testimonial,
             'tabs' => 'managerarea.testimonials.tabs',
             'url' => route('managerarea.testimonials.stash'),
-            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-import-table",
+            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-import",
         ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
     }
 
@@ -131,7 +131,7 @@ class TestimonialsController extends AuthorizedController
         return $importLogsDatatable->with([
             'resource' => trans('cortex/testimonials::common.testimonial'),
             'tabs' => 'managerarea.testimonials.tabs',
-            'id' => 'managerarea-testimonials-import-logs-table',
+            'id' => 'managerarea-testimonials-import-logs',
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 

@@ -7,7 +7,7 @@ use Rinvex\Menus\Models\MenuGenerator;
 use Cortex\Testimonials\Models\Testimonial;
 
 Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Testimonial $testimonial) {
-    $menu->findByTitleOrAdd(trans('cortex/foundation::common.crm'), 50, 'fa fa-briefcase', [], function (MenuItem $dropdown) use ($testimonial) {
+    $menu->findByTitleOrAdd(trans('cortex/foundation::common.crm'), 50, 'fa fa-briefcase', 'header', [], function (MenuItem $dropdown) use ($testimonial) {
         $dropdown->route(['adminarea.testimonials.index'], trans('cortex/testimonials::common.testimonials'), 10, 'fa fa-quote-right')->ifCan('list', $testimonial)->activateOnRoute('adminarea.testimonials');
     });
 });

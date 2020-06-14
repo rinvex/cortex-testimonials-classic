@@ -44,9 +44,6 @@ class TestimonialsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Merge config
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'cortex.testimonials');
-
         // Bind eloquent models to IoC container
         $this->app['config']['rinvex.testimonials.models.testimonial'] === Testimonial::class
         || $this->app->alias('rinvex.testimonials.testimonial', Testimonial::class);
@@ -70,20 +67,5 @@ class TestimonialsServiceProvider extends ServiceProvider
         Relation::morphMap([
             'testimonial' => config('rinvex.testimonials.models.testimonial'),
         ]);
-
-        // Load resources
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/testimonials');
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'cortex/testimonials');
-        ! $this->autoloadMigrations('cortex/testimonials') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-        $this->app->runningInConsole() || $dispatcher->listen('accessarea.ready', function ($accessarea) {
-            ! file_exists($menus = __DIR__."/../../routes/menus/{$accessarea}.php") || require $menus;
-            ! file_exists($breadcrumbs = __DIR__."/../../routes/breadcrumbs/{$accessarea}.php") || require $breadcrumbs;
-        });
-
-        // Publish Resources
-        $this->publishesLang('cortex/testimonials', true);
-        $this->publishesViews('cortex/testimonials', true);
-        $this->publishesMigrations('cortex/testimonials', true);
     }
 }

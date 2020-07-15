@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($testimonial->exists && $currentUser->can('delete', $testimonial))
+                @if($testimonial->exists && app('request.user')->can('delete', $testimonial))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
                            data-modal-action="{{ route('managerarea.testimonials.destroy', ['testimonial' => $testimonial]) }}"

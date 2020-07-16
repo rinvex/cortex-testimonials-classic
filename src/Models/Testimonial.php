@@ -7,6 +7,7 @@ namespace Cortex\Testimonials\Models;
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
+use Rinvex\Support\Traits\HasTimezones;
 use Cortex\Foundation\Events\ModelCreated;
 use Cortex\Foundation\Events\ModelDeleted;
 use Cortex\Foundation\Events\ModelUpdated;
@@ -56,6 +57,7 @@ class Testimonial extends BaseTestimonial
     use Auditable;
     use Tenantable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
     use FiresCustomModelEvent;
 

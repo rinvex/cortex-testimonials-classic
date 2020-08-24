@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Testimonials\Http\Controllers\Managerarea;
 
 use Exception;
+use Illuminate\Http\Request;
 use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
@@ -136,13 +137,40 @@ class TestimonialsController extends AuthorizedController
     }
 
     /**
-     * Show testimonial create/edit form.
+     * Create new testimonial.
      *
+     * @param \Illuminate\Http\Request                $request
      * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\View\View
      */
-    protected function form(Testimonial $testimonial)
+    public function create(Request $request, Testimonial $testimonial)
+    {
+        return $this->form($request, $testimonial);
+    }
+
+    /**
+     * Edit given testimonial.
+     *
+     * @param \Illuminate\Http\Request                $request
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Testimonial $testimonial)
+    {
+        return $this->form($request, $testimonial);
+    }
+
+    /**
+     * Show testimonial create/edit form.
+     *
+     * @param \Illuminate\Http\Request                $request
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function form(Request $request, Testimonial $testimonial)
     {
         return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial'));
     }

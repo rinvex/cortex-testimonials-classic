@@ -15,10 +15,10 @@ Route::domain(domain())->group(function () {
                  Route::post('import')->name('stash')->uses('TestimonialsController@stash');
                  Route::post('hoard')->name('hoard')->uses('TestimonialsController@hoard');
                  Route::get('import/logs')->name('import.logs')->uses('TestimonialsController@importLogs');
-                 Route::get('create')->name('create')->uses('TestimonialsController@form');
+                 Route::get('create')->name('create')->uses('TestimonialsController@create');
                  Route::post('create')->name('store')->uses('TestimonialsController@store');
                  Route::get('{testimonial}')->name('show')->uses('TestimonialsController@show');
-                 Route::get('{testimonial}/edit')->name('edit')->uses('TestimonialsController@form');
+                 Route::get('{testimonial}/edit')->name('edit')->uses('TestimonialsController@edit');
                  Route::put('{testimonial}/edit')->name('update')->uses('TestimonialsController@update');
                  Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
                  Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');

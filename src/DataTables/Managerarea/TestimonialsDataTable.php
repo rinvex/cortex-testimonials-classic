@@ -28,7 +28,7 @@ class TestimonialsDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'managerarea.testimonials.edit\', {testimonial: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            ? '"<a href=\""+routes.route(\'managerarea.testimonials.edit\', {testimonial: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
             : '"<a href=\""+routes.route(\'managerarea.testimonials.edit\', {testimonial: full.id})+"\">"+data+"</a>"';
 
         return [

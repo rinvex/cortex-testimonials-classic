@@ -6,7 +6,7 @@ namespace Cortex\Testimonials\DataTables\Adminarea;
 
 use Cortex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Testimonials\Transformers\Adminarea\TestimonialTransformer;
+use Cortex\Testimonials\Transformers\TestimonialTransformer;
 
 class TestimonialsDataTable extends AbstractDataTable
 {

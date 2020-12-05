@@ -35,6 +35,7 @@ class TestimonialsController extends AuthorizedController
     {
         return $testimonialsDataTable->with([
             'id' => 'managerarea-testimonials-index',
+            'pusher' => ['entity' => 'testimonial', 'channel' => 'rinvex.testimonials.testimonials.index'],
         ])->render('cortex/foundation::managerarea.pages.datatable-index');
     }
 

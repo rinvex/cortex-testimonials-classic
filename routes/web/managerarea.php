@@ -9,7 +9,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.managerarea') : config('cortex.foundation.route.prefix.managerarea'))->group(function () {
 
             // Testimonials Routes
-             Route::name('testimonials.')->prefix('testimonials')->group(function () {
+             Route::name('cortex.testimonials.testimonials.')->prefix('testimonials')->group(function () {
                  Route::get('/')->name('index')->uses('TestimonialsController@index');
                  Route::get('import')->name('import')->uses('TestimonialsController@import');
                  Route::post('import')->name('stash')->uses('TestimonialsController@stash');

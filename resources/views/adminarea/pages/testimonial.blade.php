@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector("#adminarea-testimonials-create-form, #adminarea-testimonials-{$testimonial->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Adminarea\TestimonialFormRequest::class)->selector("#adminarea-cortex-testimonials-testimonials-create-form, #adminarea-cortex-testimonials-testimonials-{$testimonial->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -27,7 +27,7 @@
                 @if($testimonial->exists && app('request.user')->can('delete', $testimonial))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('adminarea.testimonials.destroy', ['testimonial' => $testimonial]) }}"
+                           data-modal-action="{{ route('adminarea.cortex.testimonials.testimonials.destroy', ['testimonial' => $testimonial]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                            data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()]) }}"
@@ -35,16 +35,16 @@
                         </a>
                     </div>
                 @endif
-                {!! Menu::render('adminarea.testimonials.tabs', 'nav-tab') !!}
+                {!! Menu::render('adminarea.cortex.testimonials.testimonials.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($testimonial->exists)
-                            {{ Form::model($testimonial, ['url' => route('adminarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "adminarea-testimonials-{$testimonial->getRouteKey()}-update-form"]) }}
+                            {{ Form::model($testimonial, ['url' => route('adminarea.cortex.testimonials.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "adminarea-cortex-testimonials-testimonials-{$testimonial->getRouteKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($testimonial, ['url' => route('adminarea.testimonials.store'), 'id' => 'adminarea-testimonials-create-form']) }}
+                            {{ Form::model($testimonial, ['url' => route('adminarea.cortex.testimonials.testimonials.store'), 'id' => 'adminarea-cortex-testimonials-testimonials-create-form']) }}
                         @endif
 
                             <div class="row">

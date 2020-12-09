@@ -9,6 +9,10 @@ use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
 use Rinvex\Support\Traits\HasTimezones;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Cortex\Testimonials\Events\TestimonialCreated;
+use Cortex\Testimonials\Events\TestimonialDeleted;
+use Cortex\Testimonials\Events\TestimonialUpdated;
+use Cortex\Testimonials\Events\TestimonialRestored;
 
 use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
 
@@ -55,6 +59,18 @@ class Testimonial extends BaseTestimonial
     use HashidsTrait;
     use HasTimezones;
     use LogsActivity;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => TestimonialCreated::class,
+        'updated' => TestimonialUpdated::class,
+        'deleted' => TestimonialDeleted::class,
+        'restored' => TestimonialRestored::class,
+    ];
 
     /**
      * Indicates whether to log only dirty attributes or all.

@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest::class)->selector("#managerarea-testimonials-create-form, #managerarea-testimonials-{$testimonial->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
+    {!! JsValidator::formRequest(Cortex\Testimonials\Http\Requests\Managerarea\TestimonialFormRequest::class)->selector("#managerarea-cortex-testimonials-testimonials-create-form, #managerarea-cortex-testimonials-testimonials-{$testimonial->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -24,10 +24,10 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($testimonial->exists && $currentUser->can('delete', $testimonial))
+                @if($testimonial->exists && app('request.user')->can('delete', $testimonial))
                     <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('managerarea.testimonials.destroy', ['testimonial' => $testimonial]) }}"
+                           data-modal-action="{{ route('managerarea.cortex.testimonials.testimonials.destroy', ['testimonial' => $testimonial]) }}"
                            data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
                            data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
                            data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()]) }}"
@@ -35,16 +35,16 @@
                         </a>
                     </div>
                 @endif
-                {!! Menu::render('managerarea.testimonials.tabs', 'nav-tab') !!}
+                {!! Menu::render('managerarea.cortex.testimonials.testimonials.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($testimonial->exists)
-                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-update-form"]) }}
+                            {{ Form::model($testimonial, ['url' => route('managerarea.cortex.testimonials.testimonials.update', ['testimonial' => $testimonial]), 'method' => 'put', 'id' => "managerarea-cortex-testimonials-testimonials-{$testimonial->getRouteKey()}-update-form"]) }}
                         @else
-                            {{ Form::model($testimonial, ['url' => route('managerarea.testimonials.store'), 'id' => 'managerarea-testimonials-create-form']) }}
+                            {{ Form::model($testimonial, ['url' => route('managerarea.cortex.testimonials.testimonials.store'), 'id' => 'managerarea-cortex-testimonials-testimonials-create-form']) }}
                         @endif
 
                             <div class="row">

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cortex\Testimonials\Http\Controllers\Managerarea;
 
 use Exception;
+use Illuminate\Http\Request;
 use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
@@ -33,7 +34,8 @@ class TestimonialsController extends AuthorizedController
     public function index(TestimonialsDataTable $testimonialsDataTable)
     {
         return $testimonialsDataTable->with([
-            'id' => 'managerarea-testimonials-index',
+            'id' => 'managerarea-cortex-testimonials-testimonials-index',
+            'pusher' => ['entity' => 'testimonial', 'channel' => 'cortex.testimonials.testimonials.index'],
         ])->render('cortex/foundation::managerarea.pages.datatable-index');
     }
 
@@ -49,8 +51,8 @@ class TestimonialsController extends AuthorizedController
     {
         return $logsDataTable->with([
             'resource' => $testimonial,
-            'tabs' => 'managerarea.testimonials.tabs',
-            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-logs",
+            'tabs' => 'managerarea.cortex.testimonials.testimonials.tabs',
+            'id' => "managerarea-cortex-testimonials-testimonials-{$testimonial->getRouteKey()}-logs",
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
@@ -66,9 +68,9 @@ class TestimonialsController extends AuthorizedController
     {
         return $importRecordsDataTable->with([
             'resource' => $testimonial,
-            'tabs' => 'managerarea.testimonials.tabs',
-            'url' => route('managerarea.testimonials.stash'),
-            'id' => "managerarea-testimonials-{$testimonial->getRouteKey()}-import",
+            'tabs' => 'managerarea.cortex.testimonials.testimonials.tabs',
+            'url' => route('managerarea.cortex.testimonials.testimonials.stash'),
+            'id' => "managerarea-cortex-testimonials-testimonials-{$testimonial->getRouteKey()}-import",
         ])->render('cortex/foundation::managerarea.pages.datatable-dropzone');
     }
 
@@ -130,19 +132,46 @@ class TestimonialsController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => trans('cortex/testimonials::common.testimonial'),
-            'tabs' => 'managerarea.testimonials.tabs',
-            'id' => 'managerarea-testimonials-import-logs',
+            'tabs' => 'managerarea.cortex.testimonials.testimonials.tabs',
+            'id' => 'managerarea-cortex-testimonials-testimonials-import-logs',
         ])->render('cortex/foundation::managerarea.pages.datatable-tab');
+    }
+
+    /**
+     * Create new testimonial.
+     *
+     * @param \Illuminate\Http\Request                $request
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request, Testimonial $testimonial)
+    {
+        return $this->form($request, $testimonial);
+    }
+
+    /**
+     * Edit given testimonial.
+     *
+     * @param \Illuminate\Http\Request                $request
+     * @param \Cortex\Testimonials\Models\Testimonial $testimonial
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request, Testimonial $testimonial)
+    {
+        return $this->form($request, $testimonial);
     }
 
     /**
      * Show testimonial create/edit form.
      *
+     * @param \Illuminate\Http\Request                $request
      * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\View\View
      */
-    protected function form(Testimonial $testimonial)
+    protected function form(Request $request, Testimonial $testimonial)
     {
         return view('cortex/testimonials::managerarea.pages.testimonial', compact('testimonial'));
     }
@@ -190,7 +219,7 @@ class TestimonialsController extends AuthorizedController
         $testimonial->fill($data)->save();
 
         return intend([
-            'url' => route('managerarea.testimonials.index'),
+            'url' => route('managerarea.cortex.testimonials.testimonials.index'),
             'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }
@@ -209,7 +238,7 @@ class TestimonialsController extends AuthorizedController
         $testimonial->delete();
 
         return intend([
-            'url' => route('managerarea.testimonials.index'),
+            'url' => route('managerarea.cortex.testimonials.testimonials.index'),
             'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()])],
         ]);
     }

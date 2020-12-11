@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Testimonials\Transformers\Adminarea;
+namespace Cortex\Testimonials\Transformers;
 
 use Rinvex\Support\Traits\Escaper;
 use League\Fractal\TransformerAbstract;

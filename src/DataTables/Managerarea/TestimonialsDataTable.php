@@ -6,7 +6,7 @@ namespace Cortex\Testimonials\DataTables\Managerarea;
 
 use Cortex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\AbstractDataTable;
-use Cortex\Testimonials\Transformers\Managerarea\TestimonialTransformer;
+use Cortex\Testimonials\Transformers\TestimonialTransformer;
 
 class TestimonialsDataTable extends AbstractDataTable
 {
@@ -28,8 +28,8 @@ class TestimonialsDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'managerarea.testimonials.edit\', {testimonial: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'managerarea.testimonials.edit\', {testimonial: full.id})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'managerarea.cortex.testimonials.testimonials.edit\', {testimonial: full.id, locale: \''.$this->request()->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'managerarea.cortex.testimonials.testimonials.edit\', {testimonial: full.id})+"\">"+data+"</a>"';
 
         return [
             'id' => ['checkboxes' => '{"selectRow": true}', 'exportable' => false, 'printable' => false],

@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.2.1] - 2020-12-11
+- Move custom eloquent model events to module layer from core package layer
+- Rename broadcast channels file to avoid accessarea naming
+- Rename routes, channels, menus, breadcrumbs, datatable & form IDs to follow same modular naming conventions
+- Tweak datatables realtime
+- Move Eloquent Events to core package responsibility
+- Type hint Authorizable user parameter
+- Simplify datatables transformers to be accessarea independent
+- Enforce consistent datatables request object usage
+- Enforce controller API consistency
+- Activate module after installation
+- Utilize timezones
+- Use app('request.user') instead of $currentUser
+- Update composer dependencies
+- Refactor route parameters to container service binding
+- Stick to composer version constraints recommendations and ease minimum required version of modules
+
 ## [v4.2.0] - 2020-06-15
 - Autoload config, views, language, menus, breadcrumbs, and migrations
   - This is now done automatically through cortex/foundation, so no need to manually wire it here anymore
@@ -124,6 +141,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-09-22
 - Tag first release
 
+[v4.2.1]: https://github.com/rinvex/cortex-testimonials/compare/v4.2.0...v4.2.1
 [v4.2.0]: https://github.com/rinvex/cortex-testimonials/compare/v4.1.1...v4.2.0
 [v4.1.1]: https://github.com/rinvex/cortex-testimonials/compare/v4.1.0...v4.1.1
 [v4.1.0]: https://github.com/rinvex/cortex-testimonials/compare/v4.0.8...v4.1.0

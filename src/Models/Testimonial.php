@@ -7,12 +7,13 @@ namespace Cortex\Testimonials\Models;
 use Rinvex\Tenants\Traits\Tenantable;
 use Cortex\Foundation\Traits\Auditable;
 use Rinvex\Support\Traits\HashidsTrait;
-use Cortex\Foundation\Events\ModelCreated;
-use Cortex\Foundation\Events\ModelDeleted;
-use Cortex\Foundation\Events\ModelUpdated;
-use Cortex\Foundation\Events\ModelRestored;
+use Rinvex\Support\Traits\HasTimezones;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Cortex\Foundation\Traits\FiresCustomModelEvent;
+use Cortex\Testimonials\Events\TestimonialCreated;
+use Cortex\Testimonials\Events\TestimonialDeleted;
+use Cortex\Testimonials\Events\TestimonialUpdated;
+use Cortex\Testimonials\Events\TestimonialRestored;
+
 use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
 
 /**
@@ -56,8 +57,8 @@ class Testimonial extends BaseTestimonial
     use Auditable;
     use Tenantable;
     use HashidsTrait;
+    use HasTimezones;
     use LogsActivity;
-    use FiresCustomModelEvent;
 
     /**
      * The event map for the model.
@@ -65,10 +66,10 @@ class Testimonial extends BaseTestimonial
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => ModelCreated::class,
-        'deleted' => ModelDeleted::class,
-        'restored' => ModelRestored::class,
-        'updated' => ModelUpdated::class,
+        'created' => TestimonialCreated::class,
+        'updated' => TestimonialUpdated::class,
+        'deleted' => TestimonialDeleted::class,
+        'restored' => TestimonialRestored::class,
     ];
 
     /**

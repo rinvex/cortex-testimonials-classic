@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Testimonials\Events;
 
-use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Queue\SerializesModels;
+use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;

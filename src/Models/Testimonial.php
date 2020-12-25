@@ -13,25 +13,24 @@ use Cortex\Testimonials\Events\TestimonialCreated;
 use Cortex\Testimonials\Events\TestimonialDeleted;
 use Cortex\Testimonials\Events\TestimonialUpdated;
 use Cortex\Testimonials\Events\TestimonialRestored;
-
 use Rinvex\Testimonials\Models\Testimonial as BaseTestimonial;
 
 /**
  * Cortex\Testimonials\Models\Testimonial.
  *
- * @property int                                                                             $id
- * @property int                                                                             $subject_id
- * @property string                                                                          $subject_type
- * @property int                                                                             $attestant_id
- * @property string                                                                          $attestant_type
- * @property bool                                                                            $is_approved
- * @property string                                                                          $body
- * @property \Carbon\Carbon|null                                                             $created_at
- * @property \Carbon\Carbon|null                                                             $updated_at
- * @property \Carbon\Carbon|null                                                             $deleted_at
+ * @property int                 $id
+ * @property int                 $subject_id
+ * @property string              $subject_type
+ * @property int                 $attestant_id
+ * @property string              $attestant_type
+ * @property bool                $is_approved
+ * @property string              $body
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
  * @property-read \Cortex\Auth\Models\User|\Illuminate\Database\Eloquent\Model|\Eloquent     $attestant
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent                              $subject
- * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[]        $tenants
+ * @property \Illuminate\Database\Eloquent\Collection|\Cortex\Tenants\Models\Tenant[] $tenants
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial approved()
  * @method static \Illuminate\Database\Eloquent\Builder|\Cortex\Testimonials\Models\Testimonial disapproved()

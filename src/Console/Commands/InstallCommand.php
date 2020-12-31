@@ -35,6 +35,7 @@ class InstallCommand extends Command
         $this->call('cortex:migrate:testimonials', ['--force' => $this->option('force')]);
         $this->call('cortex:seed:testimonials');
 
-        $this->call('cortex:activate', ['--module' => 'cortex/testimonials']);
+        $this->call('cortex:autoload:testimonials', ['--force' => $this->option('force')]);
+        $this->call('cortex:activate:testimonials', ['--force' => $this->option('force')]);
     }
 }

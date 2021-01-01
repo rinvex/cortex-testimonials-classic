@@ -11,14 +11,10 @@ use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Cortex\Testimonials\Console\Commands\SeedCommand;
-use Cortex\Testimonials\Console\Commands\UnloadCommand;
 use Cortex\Testimonials\Console\Commands\InstallCommand;
 use Cortex\Testimonials\Console\Commands\MigrateCommand;
 use Cortex\Testimonials\Console\Commands\PublishCommand;
-use Cortex\Testimonials\Console\Commands\ActivateCommand;
-use Cortex\Testimonials\Console\Commands\AutoloadCommand;
 use Cortex\Testimonials\Console\Commands\RollbackCommand;
-use Cortex\Testimonials\Console\Commands\DeactivateCommand;
 
 class TestimonialsServiceProvider extends ServiceProvider
 {
@@ -30,11 +26,6 @@ class TestimonialsServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        ActivateCommand::class => 'command.cortex.testimonials.activate',
-        DeactivateCommand::class => 'command.cortex.testimonials.deactivate',
-        AutoloadCommand::class => 'command.cortex.testimonials.autoload',
-        UnloadCommand::class => 'command.cortex.testimonials.unload',
-
         SeedCommand::class => 'command.cortex.testimonials.seed',
         InstallCommand::class => 'command.cortex.testimonials.install',
         MigrateCommand::class => 'command.cortex.testimonials.migrate',

@@ -173,7 +173,7 @@ class TestimonialsController extends AuthorizedController
      */
     protected function form(Request $request, Testimonial $testimonial)
     {
-        if(! $testimonial->exists && $request->has('replicate') && $replicated = $testimonial->resolveRouteBinding($request->get('replicate'))){
+        if (! $testimonial->exists && $request->has('replicate') && $replicated = $testimonial->resolveRouteBinding($request->get('replicate'))) {
             $testimonial = $replicated->replicate();
         }
 

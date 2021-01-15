@@ -24,17 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($testimonial->exists && app('request.user')->can('delete', $testimonial))
-                    <div class="pull-right">
-                        <a href="#" data-toggle="modal" data-target="#delete-confirmation"
-                           data-modal-action="{{ route('managerarea.cortex.testimonials.testimonials.destroy', ['testimonial' => $testimonial]) }}"
-                           data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}"
-                           data-modal-button="<a href='#' class='btn btn-danger' data-form='delete' data-token='{{ csrf_token() }}'><i class='fa fa-trash-o'></i> {{ trans('cortex/foundation::common.delete') }}</a>"
-                           data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => trans('cortex/testimonials::common.testimonial'), 'identifier' => $testimonial->getRouteKey()]) }}"
-                           title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </div>
-                @endif
+                @includeWhen($testimonial->exists, 'cortex/foundation::common.partials.actions', ['name' => 'testimonial', 'model' => $testimonial, 'resource' => trans('cortex/testimonials::common.testimonial'), 'routePrefix' => 'managerarea.cortex.testimonials.testimonials.'])
                 {!! Menu::render('managerarea.cortex.testimonials.testimonials.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">

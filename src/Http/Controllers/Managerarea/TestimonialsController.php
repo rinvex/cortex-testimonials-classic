@@ -22,7 +22,7 @@ class TestimonialsController extends AuthorizedController
     /**
      * {@inheritdoc}
      */
-    protected $resource = Testimonial::class;
+    protected $resource = 'rinvex.testimonials.models.testimonial';
 
     /**
      * List all testimonials.

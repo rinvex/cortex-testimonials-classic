@@ -98,7 +98,7 @@ class TestimonialsController extends AuthorizedController
      */
     public function hoard(ImportFormRequest $request)
     {
-        foreach ((array) $request->get('selected_ids') as $recordId) {
+        foreach ((array) $request->input('selected_ids') as $recordId) {
             $record = app('cortex.foundation.import_record')->find($recordId);
 
             try {
@@ -172,7 +172,7 @@ class TestimonialsController extends AuthorizedController
      */
     protected function form(Request $request, Testimonial $testimonial)
     {
-        if (! $testimonial->exists && $request->has('replicate') && $replicated = $testimonial->resolveRouteBinding($request->get('replicate'))) {
+        if (! $testimonial->exists && $request->has('replicate') && $replicated = $testimonial->resolveRouteBinding($request->input('replicate'))) {
             $testimonial = $replicated->replicate();
         }
 

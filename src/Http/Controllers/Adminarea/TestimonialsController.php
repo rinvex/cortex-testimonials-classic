@@ -6,8 +6,8 @@ namespace Cortex\Testimonials\Http\Controllers\Adminarea;
 
 use Exception;
 use Illuminate\Http\Request;
-use Cortex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\Http\FormRequest;
+use Cortex\Testimonials\Models\Testimonial;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
@@ -208,7 +208,7 @@ class TestimonialsController extends AuthorizedController
     /**
      * Process stored/updated testimonial.
      *
-     * @param \Cortex\Foundation\Http\FormRequest $request
+     * @param \Cortex\Foundation\Http\FormRequest     $request
      * @param \Cortex\Testimonials\Models\Testimonial $testimonial
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse

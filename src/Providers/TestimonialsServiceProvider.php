@@ -10,28 +10,10 @@ use Rinvex\Support\Traits\ConsoleTools;
 use Cortex\Testimonials\Models\Testimonial;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Cortex\Testimonials\Console\Commands\SeedCommand;
-use Cortex\Testimonials\Console\Commands\InstallCommand;
-use Cortex\Testimonials\Console\Commands\MigrateCommand;
-use Cortex\Testimonials\Console\Commands\PublishCommand;
-use Cortex\Testimonials\Console\Commands\RollbackCommand;
 
 class TestimonialsServiceProvider extends ServiceProvider
 {
     use ConsoleTools;
-
-    /**
-     * The commands to be registered.
-     *
-     * @var array
-     */
-    protected $commands = [
-        SeedCommand::class => 'command.cortex.testimonials.seed',
-        InstallCommand::class => 'command.cortex.testimonials.install',
-        MigrateCommand::class => 'command.cortex.testimonials.migrate',
-        PublishCommand::class => 'command.cortex.testimonials.publish',
-        RollbackCommand::class => 'command.cortex.testimonials.rollback',
-    ];
 
     /**
      * Register any application services.
@@ -47,9 +29,6 @@ class TestimonialsServiceProvider extends ServiceProvider
         // Bind eloquent models to IoC container
         $this->app['config']['rinvex.testimonials.models.testimonial'] === Testimonial::class
         || $this->app->alias('rinvex.testimonials.testimonial', Testimonial::class);
-
-        // Register console commands
-        $this->registerCommands($this->commands);
     }
 
     /**

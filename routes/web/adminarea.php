@@ -20,7 +20,7 @@ Route::domain(domain())->group(function () {
                  Route::get('{testimonial}')->name('show')->uses('TestimonialsController@show');
                  Route::get('{testimonial}/edit')->name('edit')->uses('TestimonialsController@edit');
                  Route::put('{testimonial}/edit')->name('update')->uses('TestimonialsController@update');
-                 Route::get('{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
+                 Route::match(['get', 'post'], '{testimonial}/logs')->name('logs')->uses('TestimonialsController@logs');
                  Route::delete('{testimonial}')->name('destroy')->uses('TestimonialsController@destroy');
              });
          });

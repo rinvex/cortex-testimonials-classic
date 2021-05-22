@@ -13,7 +13,7 @@
 {{-- Main Content --}}
 @section('content')
 
-    @includeWhen($testimonial->exists, 'cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
+    @includeWhen($testimonial->exists, 'cortex/foundation::managerarea.partials.modal', ['id' => 'delete-confirmation'])
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -24,7 +24,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @includeWhen($testimonial->exists, 'cortex/foundation::common.partials.actions', ['name' => 'testimonial', 'model' => $testimonial, 'resource' => trans('cortex/testimonials::common.testimonial'), 'routePrefix' => 'managerarea.cortex.testimonials.testimonials.'])
+                @includeWhen($testimonial->exists, 'cortex/foundation::managerarea.partials.actions', ['name' => 'testimonial', 'model' => $testimonial, 'resource' => trans('cortex/testimonials::common.testimonial'), 'routePrefix' => 'managerarea.cortex.testimonials.testimonials.'])
                 {!! Menu::render('managerarea.cortex.testimonials.testimonials.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
@@ -80,7 +80,7 @@
                                         {{ Form::button(trans('cortex/testimonials::common.submit'), ['class' => 'btn btn-primary btn-flat', 'type' => 'submit']) }}
                                     </div>
 
-                                    @include('cortex/foundation::common.partials.timestamps', ['model' => $testimonial])
+                                    @include('cortex/foundation::managerarea.partials.timestamps', ['model' => $testimonial])
 
                                 </div>
 

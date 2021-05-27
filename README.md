@@ -1,5 +1,8 @@
 # Cortex Testimonials
 
+This package is NOT actively maintained! Want to jump in as a maintainer? Ping me [@omranic](https://twitter.com/omranic)
+
+
 **Cortex Testimonials** is a frontend layer for managing testimonials. Customers can give you testimonials, and you can approve or disapprove each individually. Testimonials are good for showing the passion and love your service gets from customers, encouraging others to join the hype!
 
 [![Packagist](https://img.shields.io/packagist/v/cortex/testimonials.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/testimonials)
